@@ -1,6 +1,6 @@
 package books;
 
-import com.redmath.lec_2_prac.Lec2PracApplication;
+import com.redmath.lec_3_prac.Lec2PracApplication;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

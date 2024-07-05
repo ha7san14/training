@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.redmath.lec-2-prac' is invalid and this project uses 'com.redmath.lec_2_prac' instead.
+* The original package name 'com.redmath.lec-2-prac' is invalid and this project uses 'com.redmath.lec_3_prac' instead.
 
 # Getting Started
 
