@@ -1,0 +1,4 @@
+com\redmath\lec_2_prac\Lec2PracApplication.class
+com\redmath\lec_2_prac\books\Books.class
+com\redmath\lec_2_prac\books\BooksController.class
+com\redmath\lec_2_prac\books\BooksRepository.class

@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: schema-0.0.1
+      author: books team
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: book_pk
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: author
+                  type: varchar(255)
+              - column:
+                  name: published_date
+                  type: date
+              - column:
+                  name: price
+                  type: decimal(10, 2)
+  - changeSet:
+      id: data-0.0.1
+      author: books team
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  value: '1'
+              - column:
+                  name: title
+                  value: 'Sample Book 1'
+              - column:
+                  name: author
+                  value: 'Author 1'
+              - column:
+                  name: published_date
+                  value: '2022-01-01'
+              - column:
+                  name: price
+                  value: '9.99'
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  value: '2'
+              - column:
+                  name: title
+                  value: 'Sample Book 2'
+              - column:
+                  name: author
+                  value: 'Author 2'
+              - column:
+                  name: published_date
+                  value: '2023-01-01'
+              - column:
+                  name: price
+                  value: '19.99'

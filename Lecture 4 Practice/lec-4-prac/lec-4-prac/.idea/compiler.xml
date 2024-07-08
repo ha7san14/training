@@ -7,19 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lec1-prac" />
         <module name="lec-2-prac" />
         <module name="lec-4-prac" />
-        <module name="lec-3-prac" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="lec-2-prac" options="-parameters" />
-      <module name="lec-3-prac" options="-parameters" />
       <module name="lec-4-prac" options="-parameters" />
-      <module name="lec1-prac" options="-parameters" />
     </option>
   </component>
 </project>
