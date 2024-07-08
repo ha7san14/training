@@ -38,9 +38,9 @@ public class BooksController {
         return ResponseEntity.ok(booksService.findAll(page, size));
     }
 
-    @PostMapping("/api/v1/books")
+    @PostMapping("/api/v1/postbooks")
     public ResponseEntity<Books> create(@RequestBody Books books) {
         books = booksService.create(books);
-        return ResponseEntity.created(URI.create("/api/v1/books/" + books.getBookId())).body(books);
+        return ResponseEntity.created(URI.create("/api/v1/postbooks/" + books.getBookId())).body(books);
     }
 }
