@@ -1,0 +1,40 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:books
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+#  security:
+#    user:
+#      name: test
+#      password: test
+#      roles: bookreporter,bookeditor,librarymanager
+
+api:
+  security:
+    ignored: /api/v1/books,/api/v1/books/**,/swagger-ui/**,/v3/api-docs,/v3/api-docs/**,/index.html,/index.js
+
+
+
+#h2.console.enabled: This enables the H2 database console, which is a web interface that allows you to interact with your H2 database through a browser. When enabled, you can access the console at http://localhost:8080/h2-console (assuming your server is running on port 8080).
+
+#datasource.url: This specifies the JDBC URL for connecting to the H2 database. jdbc:h2:mem:news indicates an in-memory H2 database with the name news. In-memory databases are ephemeral and data will be lost when the application shuts down.
+#datasource.username and datasource.password: These are the credentials used to access the H2 database. Here, both the username and password are set to test.
+
+#jpa.hibernate.ddl-auto: This setting controls the schema generation strategy. Common values are:
+
+#none: No schema generation.
+#validate: Validate the schema, makes no changes to the database.
+#update: Update the database schema if necessary.
+#create: Creates the schema, destroying previous data.
+#create-drop: Creates the schema and drops it when the session ends.
+
+#  Setting it to none means Hibernate won't attempt to create, update, or validate the schema. This is useful when you want to manage the schema manually.
+
+#jpa.open-in-view: When set to false, this disables the "Open Session in View" pattern, which keeps the Hibernate session open during the entire request. Disabling it can help avoid lazy loading exceptions at the cost of potential performance overhead if you're not careful with your queries.
