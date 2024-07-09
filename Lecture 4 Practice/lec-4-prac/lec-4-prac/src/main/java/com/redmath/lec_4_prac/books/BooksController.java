@@ -6,8 +6,12 @@ import java.util.Optional;
 
 import com.redmath.lec_4_prac.books.Books;
 import com.redmath.lec_4_prac.books.BooksService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +22,7 @@ public class BooksController {
     public BooksController(BooksService booksService) {
         this.booksService = booksService;
     }
+
     @GetMapping("/api/v1/books/{bookId}")
     public ResponseEntity<Books> get(@PathVariable("bookId") Long bookId) {
         Optional<Books> books = booksService.findById(bookId);
@@ -32,13 +37,15 @@ public class BooksController {
                                                 @RequestParam(name = "size", defaultValue = "1000") Integer size) {
         return ResponseEntity.ok(booksService.findAll(page, size));
     }
-    @PreAuthorize("hasAnyAuthority('librarymanager', 'bookreporter')")
+
+//    @PreAuthorize("hasAnyAuthority('librarymanager', 'bookreporter')")
     @PostMapping("/api/v1/postbooks")
     public ResponseEntity<Books> create(@RequestBody Books books) {
         books = booksService.create(books);
         return ResponseEntity.created(URI.create("/api/v1/postbooks/" + books.getBookId())).body(books);
     }
-    @PreAuthorize("hasAnyAuthority('librarymanager', 'bookeditor')")
+
+//    @PreAuthorize("hasAnyAuthority('librarymanager', 'bookeditor')")
     @PutMapping("/api/v1/books/{bookId}")
     public ResponseEntity<Books> update(@PathVariable("bookId") Long bookId, @RequestBody Books books){
         Optional<Books> saved = booksService.update(bookId,books);
@@ -47,9 +54,11 @@ public class BooksController {
         }
         return ResponseEntity.ok(saved.get());
     }
-    @PreAuthorize("hasAuthority('librarymanager')")
+
+//    @PreAuthorize("hasAuthority('librarymanager')")
     @DeleteMapping("/api/v1/books/{bookId}")
     public ResponseEntity<Void> delete(@PathVariable("bookId") Long bookId) {
+
         booksService.delete(bookId);
         return ResponseEntity.noContent().build();
     }

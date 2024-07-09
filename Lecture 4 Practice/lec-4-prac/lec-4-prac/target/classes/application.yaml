@@ -10,11 +10,11 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
-#  security:
-#    user:
-#      name: test
-#      password: test
-#      roles: BOOKREPORTER,BOOKEDITOR,LIBRARYMANAGER
+  security:
+    user:
+      name: test
+      password: test
+      roles: bookreporter,bookeditor,librarymanager
 
 api:
   security:
