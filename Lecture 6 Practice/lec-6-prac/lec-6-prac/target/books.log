@@ -1,0 +1,245 @@
+2024-07-10 14:47:05.539 [main] INFO  books.BooksApiTest - Starting BooksApiTest using Java 21.0.3 with PID 11468 (started by muhammad.hassan.ikra in C:\Users\muhammad.hassan.ikra\Downloads\RedMath Training\Lecture 6 Practice\lec-6-prac\lec-6-prac)
+2024-07-10 14:47:05.542 [main] INFO  books.BooksApiTest - No active profile set, falling back to 1 default profile: "default"
+2024-07-10 14:47:07.594 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-10 14:47:07.686 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 79 ms. Found 2 JPA repository interfaces.
+2024-07-10 14:47:09.028 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-07-10 14:47:09.550 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:books user=TEST
+2024-07-10 14:47:09.554 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-07-10 14:47:09.730 [main] INFO  liquibase.database - Set default schema name to PUBLIC
+2024-07-10 14:47:11.056 [main] INFO  liquibase.changelog - Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2024-07-10 14:47:11.233 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 14:47:11.354 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-07-10 14:47:11.355 [main] INFO  liquibase.command - Using deploymentId: 0604831354
+2024-07-10 14:47:11.357 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 14:47:11.392 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team
+2024-07-10 14:47:11.398 [main] INFO  liquibase.changelog - Table books created
+2024-07-10 14:47:11.399 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team ran successfully in 6ms
+2024-07-10 14:47:11.408 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team
+2024-07-10 14:47:11.411 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 14:47:11.413 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 14:47:11.413 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team ran successfully in 4ms
+2024-07-10 14:47:11.417 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team
+2024-07-10 14:47:11.420 [main] INFO  liquibase.changelog - Table users created
+2024-07-10 14:47:11.423 [main] INFO  liquibase.changelog - Primary key added to users (user_id)
+2024-07-10 14:47:11.427 [main] INFO  liquibase.changelog - Unique constraint added to users(username)
+2024-07-10 14:47:11.427 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team ran successfully in 10ms
+2024-07-10 14:47:11.433 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team
+2024-07-10 14:47:11.437 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 14:47:11.439 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 14:47:11.441 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 14:47:11.442 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team ran successfully in 7ms
+2024-07-10 14:47:11.451 [main] INFO  liquibase.util - UPDATE SUMMARY
+2024-07-10 14:47:11.451 [main] INFO  liquibase.util - Run:                          4
+2024-07-10 14:47:11.452 [main] INFO  liquibase.util - Previously run:               0
+2024-07-10 14:47:11.452 [main] INFO  liquibase.util - Filtered out:                 0
+2024-07-10 14:47:11.452 [main] INFO  liquibase.util - -------------------------------
+2024-07-10 14:47:11.452 [main] INFO  liquibase.util - Total change sets:            4
+2024-07-10 14:47:11.453 [main] INFO  liquibase.util - Update summary generated
+2024-07-10 14:47:11.457 [main] INFO  liquibase.command - Update command completed successfully.
+2024-07-10 14:47:11.457 [main] INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 9
+2024-07-10 14:47:11.459 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2024-07-10 14:47:11.460 [main] INFO  liquibase.command - Command execution complete
+2024-07-10 14:47:11.642 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-10 14:47:11.815 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-10 14:47:11.871 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-07-10 14:47:12.441 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-10 14:47:14.096 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-10 14:47:14.100 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 14:47:15.093 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2024-07-10 14:47:15.242 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-07-10 14:47:16.128 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2024-07-10 14:47:17.324 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:books'
+2024-07-10 14:47:17.382 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.383 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:17.489 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2024-07-10 14:47:17.490 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2024-07-10 14:47:17.491 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2024-07-10 14:47:17.594 [main] INFO  books.BooksApiTest - Started BooksApiTest in 12.979 seconds (process running for 15.327)
+2024-07-10 14:47:19.156 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.redmath.lec_6_prac.ApplicationTests]: ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-07-10 14:47:19.213 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.redmath.lec_6_prac.Application for test class com.redmath.lec_6_prac.ApplicationTests
+2024-07-10 14:47:19.255 [main] INFO  c.r.lec_6_prac.ApplicationTests - Starting ApplicationTests using Java 21.0.3 with PID 11468 (started by muhammad.hassan.ikra in C:\Users\muhammad.hassan.ikra\Downloads\RedMath Training\Lecture 6 Practice\lec-6-prac\lec-6-prac)
+2024-07-10 14:47:19.255 [main] INFO  c.r.lec_6_prac.ApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2024-07-10 14:47:19.893 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-10 14:47:19.903 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
+2024-07-10 14:47:20.081 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2024-07-10 14:47:20.082 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:books user=TEST
+2024-07-10 14:47:20.083 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2024-07-10 14:47:20.090 [main] INFO  liquibase.database - Set default schema name to PUBLIC
+2024-07-10 14:47:20.210 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 14:47:20.226 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-07-10 14:47:20.226 [main] INFO  liquibase.command - Using deploymentId: 0604840226
+2024-07-10 14:47:20.227 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - UPDATE SUMMARY
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - Run:                          0
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - Previously run:               4
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - Filtered out:                 0
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - -------------------------------
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - Total change sets:            4
+2024-07-10 14:47:20.230 [main] INFO  liquibase.util - Update summary generated
+2024-07-10 14:47:20.231 [main] INFO  liquibase.command - Update command completed successfully.
+2024-07-10 14:47:20.231 [main] INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 0
+2024-07-10 14:47:20.232 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2024-07-10 14:47:20.232 [main] INFO  liquibase.command - Command execution complete
+2024-07-10 14:47:20.268 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-10 14:47:20.272 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-07-10 14:47:20.283 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-10 14:47:20.360 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-10 14:47:20.361 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 14:47:20.605 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2024-07-10 14:47:20.623 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-07-10 14:47:20.901 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2024-07-10 14:47:21.327 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:books'
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.362 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.363 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 14:47:21.411 [main] INFO  c.r.lec_6_prac.ApplicationTests - Started ApplicationTests in 2.19 seconds (process running for 19.145)
+2024-07-10 14:47:21.755 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 14:47:21.757 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-07-10 14:47:21.761 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-07-10 14:47:21.766 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 14:47:21.767 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2024-07-10 14:47:21.770 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2024-07-10 16:15:47.374 [main] INFO  books.BooksApiTest - Starting BooksApiTest using Java 21.0.3 with PID 12100 (started by muhammad.hassan.ikra in C:\Users\muhammad.hassan.ikra\Downloads\RedMath Training\Lecture 6 Practice\lec-6-prac\lec-6-prac)
+2024-07-10 16:15:47.376 [main] INFO  books.BooksApiTest - No active profile set, falling back to 1 default profile: "default"
+2024-07-10 16:15:48.875 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-10 16:15:48.940 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 2 JPA repository interfaces.
+2024-07-10 16:15:49.904 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-07-10 16:15:50.148 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:books user=TEST
+2024-07-10 16:15:50.150 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-07-10 16:15:50.231 [main] INFO  liquibase.database - Set default schema name to PUBLIC
+2024-07-10 16:15:50.634 [main] INFO  liquibase.changelog - Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2024-07-10 16:15:50.754 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 16:15:50.859 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-07-10 16:15:50.860 [main] INFO  liquibase.command - Using deploymentId: 0610150860
+2024-07-10 16:15:50.862 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 16:15:50.899 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team
+2024-07-10 16:15:50.904 [main] INFO  liquibase.changelog - Table books created
+2024-07-10 16:15:50.905 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team ran successfully in 5ms
+2024-07-10 16:15:50.914 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team
+2024-07-10 16:15:50.916 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 16:15:50.918 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 16:15:50.918 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team ran successfully in 4ms
+2024-07-10 16:15:50.922 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team
+2024-07-10 16:15:50.925 [main] INFO  liquibase.changelog - Table users created
+2024-07-10 16:15:50.927 [main] INFO  liquibase.changelog - Primary key added to users (user_id)
+2024-07-10 16:15:50.930 [main] INFO  liquibase.changelog - Unique constraint added to users(username)
+2024-07-10 16:15:50.931 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team ran successfully in 9ms
+2024-07-10 16:15:50.951 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team
+2024-07-10 16:15:50.953 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:15:50.955 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:15:50.957 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:15:50.958 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team ran successfully in 6ms
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - UPDATE SUMMARY
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - Run:                          4
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - Previously run:               0
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - Filtered out:                 0
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - -------------------------------
+2024-07-10 16:15:50.966 [main] INFO  liquibase.util - Total change sets:            4
+2024-07-10 16:15:50.967 [main] INFO  liquibase.util - Update summary generated
+2024-07-10 16:15:50.970 [main] INFO  liquibase.command - Update command completed successfully.
+2024-07-10 16:15:50.971 [main] INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 9
+2024-07-10 16:15:50.973 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2024-07-10 16:15:50.974 [main] INFO  liquibase.command - Command execution complete
+2024-07-10 16:15:51.136 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-10 16:15:51.218 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-10 16:15:51.261 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-07-10 16:15:51.647 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-10 16:15:52.711 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-10 16:15:52.714 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 16:15:53.495 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2024-07-10 16:15:53.598 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-07-10 16:15:54.323 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2024-07-10 16:15:55.392 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:books'
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.449 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.450 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:15:55.531 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2024-07-10 16:15:55.531 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2024-07-10 16:15:55.533 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2024-07-10 16:15:55.624 [main] INFO  books.BooksApiTest - Started BooksApiTest in 8.78 seconds (process running for 11.8)
+2024-07-10 16:15:56.907 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 16:15:56.910 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-07-10 16:15:56.914 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-07-10 16:16:24.611 [main] INFO  com.redmath.lec_6_prac.Application - Starting Application using Java 21.0.3 with PID 10932 (C:\Users\muhammad.hassan.ikra\Downloads\RedMath Training\Lecture 6 Practice\lec-6-prac\lec-6-prac\target\classes started by muhammad.hassan.ikra in C:\Users\muhammad.hassan.ikra\Downloads\RedMath Training\Lecture 6 Practice\lec-6-prac\lec-6-prac)
+2024-07-10 16:16:24.613 [main] INFO  com.redmath.lec_6_prac.Application - No active profile set, falling back to 1 default profile: "default"
+2024-07-10 16:16:26.097 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-10 16:16:26.162 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 2 JPA repository interfaces.
+2024-07-10 16:16:27.208 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-07-10 16:16:27.222 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-07-10 16:16:27.224 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-07-10 16:16:27.225 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-10 16:16:27.305 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-07-10 16:16:27.306 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2640 ms
+2024-07-10 16:16:27.712 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-07-10 16:16:27.919 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:books user=TEST
+2024-07-10 16:16:27.932 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-07-10 16:16:27.944 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:books'
+2024-07-10 16:16:28.240 [main] INFO  liquibase.database - Set default schema name to PUBLIC
+2024-07-10 16:16:28.563 [main] INFO  liquibase.changelog - Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2024-07-10 16:16:28.680 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 16:16:28.785 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-07-10 16:16:28.786 [main] INFO  liquibase.command - Using deploymentId: 0610188786
+2024-07-10 16:16:28.788 [main] INFO  liquibase.changelog - Reading from PUBLIC.DATABASECHANGELOG
+2024-07-10 16:16:28.824 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team
+2024-07-10 16:16:28.829 [main] INFO  liquibase.changelog - Table books created
+2024-07-10 16:16:28.830 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::schema-0.0.1::books team ran successfully in 5ms
+2024-07-10 16:16:28.837 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team
+2024-07-10 16:16:28.840 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 16:16:28.841 [main] INFO  liquibase.changelog - New row inserted into books
+2024-07-10 16:16:28.841 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture02.yaml::data-0.0.1::books team ran successfully in 3ms
+2024-07-10 16:16:28.845 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team
+2024-07-10 16:16:28.848 [main] INFO  liquibase.changelog - Table users created
+2024-07-10 16:16:28.850 [main] INFO  liquibase.changelog - Primary key added to users (user_id)
+2024-07-10 16:16:28.854 [main] INFO  liquibase.changelog - Unique constraint added to users(username)
+2024-07-10 16:16:28.854 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::schema-0.0.2::books team ran successfully in 9ms
+2024-07-10 16:16:28.859 [main] INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team
+2024-07-10 16:16:28.862 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:16:28.863 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:16:28.865 [main] INFO  liquibase.changelog - New row inserted into users
+2024-07-10 16:16:28.865 [main] INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog-lecture03.yaml::data-0.0.2::books team ran successfully in 5ms
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - UPDATE SUMMARY
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - Run:                          4
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - Previously run:               0
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - Filtered out:                 0
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - -------------------------------
+2024-07-10 16:16:28.873 [main] INFO  liquibase.util - Total change sets:            4
+2024-07-10 16:16:28.874 [main] INFO  liquibase.util - Update summary generated
+2024-07-10 16:16:28.877 [main] INFO  liquibase.command - Update command completed successfully.
+2024-07-10 16:16:28.877 [main] INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 9
+2024-07-10 16:16:28.879 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2024-07-10 16:16:28.880 [main] INFO  liquibase.command - Command execution complete
+2024-07-10 16:16:28.996 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-10 16:16:29.085 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-10 16:16:29.129 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-07-10 16:16:29.486 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-10 16:16:30.522 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-10 16:16:30.525 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 16:16:31.219 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2024-07-10 16:16:31.312 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-07-10 16:16:31.844 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/api/v1/books/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.561 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-07-10 16:16:32.658 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-07-10 16:16:32.676 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2024-07-10 16:16:32.692 [main] INFO  com.redmath.lec_6_prac.Application - Started Application in 8.727 seconds (process running for 9.203)
+2024-07-10 16:16:47.294 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-10 16:16:47.297 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-07-10 16:16:47.301 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

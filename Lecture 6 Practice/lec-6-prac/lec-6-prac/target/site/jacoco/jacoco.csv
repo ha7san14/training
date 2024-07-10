@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+lec-6-prac,com.redmath.lec_6_prac.books,Books,4,49,0,0,0,14,1,14,1,14
+lec-6-prac,com.redmath.lec_6_prac.books,BooksController,24,42,2,2,6,10,3,5,2,4
+lec-6-prac,com.redmath.lec_6_prac.books,BooksApiClient,0,3,0,0,0,1,0,1,0,1
+lec-6-prac,com.redmath.lec_6_prac.books,BooksService,42,48,4,2,10,12,5,4,2,4
+lec-6-prac,com.redmath.lec_6_prac,Application,5,3,0,0,2,1,1,1,1,1
+lec-6-prac,com.redmath.lec_6_prac.config,ApiSecurityConfiguration,0,131,0,2,0,15,0,7,0,6
+lec-6-prac,com.redmath.lec_6_prac.config,ApiProperties,0,10,0,0,0,3,0,3,0,3
+lec-6-prac,com.redmath.lec_6_prac.user,User,38,0,0,0,7,0,11,0,11,0
+lec-6-prac,com.redmath.lec_6_prac.user,UserService,37,10,2,0,6,4,2,2,1,2

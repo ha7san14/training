@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiSecurityConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lec-6-prac</a> &gt; <a href="index.source.html" class="el_package">com.redmath.lec_6_prac.config</a> &gt; <span class="el_source">ApiSecurityConfiguration.java</span></div><h1>ApiSecurityConfiguration.java</h1><pre class="source lang-java linenums">package com.redmath.lec_6_prac.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@EnableConfigurationProperties(value = { ApiProperties.class })
+@EnableMethodSecurity
+@Configuration
+<span class="fc" id="L21">public class ApiSecurityConfiguration {</span>
+
+    @Value(&quot;${api.security.ignored}&quot;)
+    private String[] ignored;
+
+
+    @Autowired
+    private ApiProperties props;
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        // return new WebSecurityCustomizer() {
+        // @Override
+        // public void customize(WebSecurity web) {
+        // for (String location : ignored) {
+        // web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET,
+        // location));
+        // }
+        // }
+        // };
+//        return web -&gt; {
+//            for (String location : ignored) {
+//                web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, location));
+//            }
+//        };
+<span class="fc" id="L46">        return web -&gt; {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            for (String location : props.getIgnored().split(&quot;,&quot;)) {</span>
+<span class="fc" id="L48">                web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, location));</span>
+            }
+<span class="fc" id="L50">        };</span>
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L55">        http.formLogin(Customizer.withDefaults());</span>
+
+<span class="fc" id="L57">        http.authorizeHttpRequests(config -&gt; config</span>
+<span class="fc" id="L58">                .requestMatchers(HttpMethod.GET, &quot;/api/v1/books/**&quot;).permitAll()</span>
+<span class="fc" id="L59">                .requestMatchers(HttpMethod.POST, &quot;/api/v1/postbooks&quot;).hasAnyAuthority(&quot;librarymanager&quot;, &quot;bookreporter&quot;)</span>
+<span class="fc" id="L60">                .requestMatchers(HttpMethod.PUT, &quot;/api/v1/books/**&quot;).hasAnyAuthority(&quot;librarymanager&quot;, &quot;bookeditor&quot;)</span>
+<span class="fc" id="L61">                .requestMatchers(HttpMethod.DELETE, &quot;/api/v1/books/**&quot;).hasAuthority(&quot;librarymanager&quot;)</span>
+<span class="fc" id="L62">               .anyRequest().authenticated());</span>
+<span class="fc" id="L63">        http.csrf(csrf -&gt; csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())</span>
+<span class="fc" id="L64">                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));</span>
+<span class="fc" id="L65">        return http.build();</span>
+        // http.csrf(csrf -&gt; csrf.disable());
+    }
+
+
+
+//        http.formLogin(Customizer.withDefaults());
+//        http.authorizeHttpRequests(config -&gt; config
+//                // .requestMatchers(HttpMethod.POST, &quot;/api/v1/postbooks&quot;).hasAnyAuthority(&quot;librarymanager&quot;,
+//                // &quot;bookreporter&quot;)
+//                // .requestMatchers(HttpMethod.PUT, &quot;/api/v1/books/**&quot;).hasAnyAuthority(&quot;librarymanager&quot;,
+//                // &quot;bookeditor&quot;)
+//                .anyRequest().authenticated());
+//        http.csrf(csrf -&gt; csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy()));
+//        return http.build();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

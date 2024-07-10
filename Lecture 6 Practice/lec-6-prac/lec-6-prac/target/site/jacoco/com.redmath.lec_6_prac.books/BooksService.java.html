@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BooksService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lec-6-prac</a> &gt; <a href="index.source.html" class="el_package">com.redmath.lec_6_prac.books</a> &gt; <span class="el_source">BooksService.java</span></div><h1>BooksService.java</h1><pre class="source lang-java linenums">package com.redmath.lec_6_prac.books;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BooksService {
+
+    private final BooksRepository booksRepository;
+
+<span class="fc" id="L16">    public BooksService(BooksRepository booksRepository) {</span>
+<span class="fc" id="L17">        this.booksRepository = booksRepository;</span>
+<span class="fc" id="L18">    }</span>
+
+    public Optional&lt;Books&gt; findById(Long bookId) {
+<span class="fc" id="L21">        return booksRepository.findById(bookId);</span>
+    }
+
+    public List&lt;Books&gt; findAll(Integer page, Integer size) {
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (page &lt; 0) {</span>
+<span class="nc" id="L26">            page = 0;</span>
+        }
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if (size &gt; 1000) {</span>
+<span class="nc" id="L29">            size = 1000;</span>
+        }
+<span class="fc" id="L31">        return booksRepository.findAll(PageRequest.of(page, size)).getContent();</span>
+    }
+
+    public Books create(Books books) {
+<span class="fc" id="L35">        books.setBookId(System.currentTimeMillis());</span>
+<span class="fc" id="L36">        String username = SecurityContextHolder.getContext().getAuthentication().getName();</span>
+<span class="fc" id="L37">        books.setReportedBy(username);</span>
+<span class="fc" id="L38">        books.setReportedAt(LocalDate.now());</span>
+<span class="fc" id="L39">        return booksRepository.save(books);</span>
+    }
+    public Optional&lt;Books&gt; update(Long bookId, Books book) {
+<span class="nc" id="L42">        Optional&lt;Books&gt; existing = booksRepository.findById(bookId);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (existing.isPresent()) {</span>
+<span class="nc" id="L44">            existing.get().setTitle(book.getTitle());</span>
+<span class="nc" id="L45">            existing.get().setAuthor(book.getAuthor());</span>
+<span class="nc" id="L46">            existing = Optional.of(booksRepository.save(existing.get()));</span>
+        }
+<span class="nc" id="L48">        return existing;</span>
+    }
+    public void delete(Long bookId) {
+<span class="nc" id="L51">        booksRepository.deleteById(bookId);</span>
+<span class="nc" id="L52">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

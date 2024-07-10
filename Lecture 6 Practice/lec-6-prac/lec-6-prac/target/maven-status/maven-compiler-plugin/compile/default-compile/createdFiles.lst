@@ -1,0 +1,11 @@
+com\redmath\lec_6_prac\books\Books.class
+com\redmath\lec_6_prac\books\BooksService.class
+com\redmath\lec_6_prac\user\UserService.class
+com\redmath\lec_6_prac\config\ApiProperties.class
+com\redmath\lec_6_prac\user\UserRepository.class
+com\redmath\lec_6_prac\Application.class
+com\redmath\lec_6_prac\books\BooksApiClient.class
+com\redmath\lec_6_prac\user\User.class
+com\redmath\lec_6_prac\config\ApiSecurityConfiguration.class
+com\redmath\lec_6_prac\books\BooksController.class
+com\redmath\lec_6_prac\books\BooksRepository.class

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Books.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lec-6-prac</a> &gt; <a href="index.source.html" class="el_package">com.redmath.lec_6_prac.books</a> &gt; <span class="el_source">Books.java</span></div><h1>Books.java</h1><pre class="source lang-java linenums">package com.redmath.lec_6_prac.books;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+<span class="pc" id="L12">@Setter</span>
+@Entity //This JPA annotation specifies that this class is a JPA entity. This means that it is mapped to a database table.
+<span class="fc" id="L14">public class Books {</span>
+    @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L17">    private Long id;</span>
+
+<span class="fc" id="L19">    private String title;</span>
+<span class="fc" id="L20">    private String author;</span>
+<span class="fc" id="L21">    private LocalDate publishedDate;</span>
+<span class="fc" id="L22">    private BigDecimal price;</span>
+
+
+    public Long getBookId() {
+<span class="fc" id="L26">        return id;</span>
+    }
+
+    public void setBookId(Long id) {
+<span class="fc" id="L30">        this.id = id;</span>
+<span class="fc" id="L31">    }</span>
+
+
+    public void setReportedBy(String author) {
+<span class="fc" id="L35">        this.author = author;</span>
+<span class="fc" id="L36">    }</span>
+
+
+    public void setReportedAt(LocalDate publishedDate) {
+<span class="fc" id="L40">        this.publishedDate = publishedDate;</span>
+<span class="fc" id="L41">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

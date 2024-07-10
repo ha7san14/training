@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog-lecture02.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db.changelog-lecture03.yaml
+      relativeToChangelogFile: true
