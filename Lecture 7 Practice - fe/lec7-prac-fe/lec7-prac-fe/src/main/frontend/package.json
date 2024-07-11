@@ -1,0 +1,17 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -a localhost -p 8000"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "lect-7-fe",
+  "dependencies": {
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
