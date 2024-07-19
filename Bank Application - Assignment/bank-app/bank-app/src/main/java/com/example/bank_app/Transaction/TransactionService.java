@@ -40,6 +40,7 @@ public class TransactionService {
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         Account account = transaction.getAccount();
+       // account = accountRepository.findById(account.getId()).orElseThrow(() -> new Exception("Account not found"));
         Balance balance = balanceRepository.findByAccount(account);
 
         if (balance == null) {
@@ -58,8 +59,8 @@ public class TransactionService {
         }
 
         // Handle transfer to another account
-        if (transaction.getReceiver_account_number() != 0) {
-            Account receiverAccount = accountRepository.findByAccountNumber((long) Math.toIntExact(transaction.getReceiver_account_number()));
+        if (transaction.getReceiver_account_number() != null) {
+            Account receiverAccount = accountRepository.findByAccountNumber(transaction.getReceiver_account_number());
             if (receiverAccount == null) {
                 throw new Exception("Receiver account not found");
             }
@@ -74,7 +75,8 @@ public class TransactionService {
             Transaction receiverTransaction = new Transaction();
             receiverTransaction.setAccount(receiverAccount);
             receiverTransaction.setAmount(transaction.getAmount());
-            receiverTransaction.setIndicator("CR"); // Credit transaction
+            receiverTransaction.setIndicator("CR");
+            receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
             receiverTransaction.setDescription(transaction.getDescription());
             receiverTransaction.setDate(LocalDateTime.now());
             transactionRepository.save(receiverTransaction);

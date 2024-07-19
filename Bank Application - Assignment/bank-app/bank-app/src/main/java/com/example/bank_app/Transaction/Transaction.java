@@ -27,7 +27,7 @@ public class Transaction {
     private BigDecimal amount;
 
     //@Column(name = "receiver_account_number", nullable = false)
-    private Long receiver_account_number;
+    private String receiver_account_number;
 
     //@Column(nullable = false)
     private String indicator;

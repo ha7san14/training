@@ -13,22 +13,9 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(nullable = false)
-    private String password;
-
-    //@Column(nullable = false)
-    private String name;
-
-    //@Column(name = "account_number")
-    private Long accountNumber;
-
-    //@Column(nullable = false)
-    private String email;
-
-    //@Column(nullable = false)
-    private String address;
+    private String accountNumber;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 }

@@ -35,7 +35,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: receiver_account_number
-                  type: BIGINT
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
                     unique: true
