@@ -11,3 +11,11 @@ spring:
       ddl-auto: update
     open-in-view: false
     show-sql: true
+
+api:
+  security:
+    ignored: /swagger-ui/**,/h2-console,/h2-console/**,/v3/api-docs,/v2/api-docs,/api/v1/auth/**
+
+jwt:
+  secret: UGEzLf3ug6HdJy7nEaVZjIxraYsbNIbt4AIBpgTAgTQ=
+  expiration: 3600000

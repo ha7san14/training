@@ -13,12 +13,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-              - column:
-                  name: email
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-                    unique: true
+
               - column:
                   name: username
                   type: VARCHAR(255)
@@ -27,11 +22,17 @@ databaseChangeLog:
                     unique: true
               - column:
                   name: password
-                  type: VARCHAR(255)
+                  type: VARCHAR(500)
                   constraints:
                     nullable: false
               - column:
-                  name: role
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: roles
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
@@ -40,3 +41,28 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 1.1
+      author: hassan
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: '123'
+              - column:
+                  name:  username
+                  value: 'admin'
+              - column:
+                  name:  password
+                  value: $2a$12$kTVfQjNAFfLmvnUYexUTee6rEJ4k8xC60nQmB8n1fgzqGfrNIdSAO
+              - column:
+                  name:  email
+                  value: 'admin@gmail.com'
+              - column:
+                  name:  roles
+                  value: 'ADMIN'
+              - column:
+                  name:  address
+                  value: 'Lahore'

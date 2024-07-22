@@ -46,7 +46,6 @@ public class UserService {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             User userToUpdate = existingUser.get();
-            // Update fields of the existing user
             userToUpdate.setUsername(user.getUsername());
             userToUpdate.setPassword(user.getPassword());
             userToUpdate.setEmail(user.getEmail());
@@ -56,17 +55,6 @@ public class UserService {
         return null;
     }
 
-
-//    public void deleteUser(Long id) {
-//        User user = userRepository.findById(id).orElse(null);
-//        if (user != null) {
-//            Account account = accountRepository.findByUserId(user.getId());
-//            if (account != null) {
-//                accountRepository.delete(account);
-//            }
-//            userRepository.deleteById(id);
-//        }
-//    }
 
     private String generateUniqueAccountNumber() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 12); // Example: generates a 12-character alphanumeric string

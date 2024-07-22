@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name = "users")
 @Getter
 @Setter
+@Entity(name = "users")
 public class User {
 
     @Id
@@ -22,7 +22,7 @@ public class User {
     private String email;
 
     //@Column(nullable = false)
-    private String role;
+    private String roles;
 
     private String address;
 

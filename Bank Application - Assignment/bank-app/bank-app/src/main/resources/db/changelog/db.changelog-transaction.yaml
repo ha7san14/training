@@ -49,3 +49,4 @@ databaseChangeLog:
             baseColumnNames: account_id
             referencedTableName: account
             referencedColumnNames: id
+            constraintName: fk_transaction_user
