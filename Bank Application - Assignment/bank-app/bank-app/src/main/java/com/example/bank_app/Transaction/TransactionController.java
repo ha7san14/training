@@ -3,6 +3,7 @@ package com.example.bank_app.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +18,13 @@ public class TransactionController {
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransactions();
         return ResponseEntity.ok(transactions);
     }
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) {
         Transaction transaction = transactionService.getTransactionById(id);
@@ -39,7 +40,7 @@ public class TransactionController {
         return ResponseEntity.ok(transactions);
     }
 
-    @PostMapping
+    @PostMapping("/create-transaction")
     public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction) {
         try {
             Transaction createdTransaction = transactionService.saveTransaction(transaction);
@@ -49,25 +50,25 @@ public class TransactionController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-        Transaction existingTransaction = transactionService.getTransactionById(id);
-        if (existingTransaction != null) {
-            transaction.setId(id);
-            try {
-                Transaction updatedTransaction = transactionService.saveTransaction(transaction);
-                return ResponseEntity.ok(updatedTransaction);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+//        Transaction existingTransaction = transactionService.getTransactionById(id);
+//        if (existingTransaction != null) {
+//            transaction.setId(id);
+//            try {
+//                Transaction updatedTransaction = transactionService.saveTransaction(transaction);
+//                return ResponseEntity.ok(updatedTransaction);
+//            } catch (Exception e) {
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//            }
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
-        transactionService.deleteTransaction(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
+//        transactionService.deleteTransaction(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }

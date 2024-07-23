@@ -1,4 +1,5 @@
 package com.example.bank_app.Account;
+
 import com.example.bank_app.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;

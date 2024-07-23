@@ -71,7 +71,6 @@ public class TransactionService {
             receiverBalance.setAmount(receiverBalance.getAmount().add(transaction.getAmount()));
             balanceRepository.save(receiverBalance);
 
-            // Save transaction for receiver with indicator "CR"
             Transaction receiverTransaction = new Transaction();
             receiverTransaction.setAccount(receiverAccount);
             receiverTransaction.setAmount(transaction.getAmount());
@@ -84,7 +83,6 @@ public class TransactionService {
 
         balanceRepository.save(balance);
 
-        // Save transaction for sender with indicator "DB"
         transaction.setDate(LocalDateTime.now());
         transactionRepository.save(transaction);
 

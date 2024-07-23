@@ -2,6 +2,7 @@ package com.example.bank_app.Balance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class BalanceController {
     public BalanceController(BalanceService balanceService) {
         this.balanceService = balanceService;
     }
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Balance>> getAllBalances() {
         List<Balance> balances = balanceService.getAllBalances();
@@ -33,7 +34,7 @@ public class BalanceController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/create-balance")
     public ResponseEntity<Balance> createBalance(@RequestBody Balance balance) {
         Balance createdBalance = balanceService.saveBalance(balance);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBalance);
@@ -51,14 +52,14 @@ public class BalanceController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBalance(@PathVariable Long id) {
-        Balance existingBalance = balanceService.getBalanceById(id);
-        if (existingBalance != null) {
-            balanceService.deleteBalance(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteBalance(@PathVariable Long id) {
+//        Balance existingBalance = balanceService.getBalanceById(id);
+//        if (existingBalance != null) {
+//            balanceService.deleteBalance(id);
+//            return ResponseEntity.noContent().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }

@@ -92,19 +92,9 @@ public class ApiSecurityConfiguration {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(config -> config
-                        .requestMatchers(HttpMethod.OPTIONS, "/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/swagger-ui/**", "/v3/api-docs", "/swagger-ui/swagger-config.json").permitAll()
-//                        // Endpoints accessible only by ADMIN
-//                        .requestMatchers("/api/users/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/accounts/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/balances/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/transactions/**").hasRole("ADMIN")
-//
-//                        // Endpoints accessible by both ADMIN and USER
-//                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasAnyRole("ADMIN", "USER")
-//                        .requestMatchers(HttpMethod.GET, "/api/accounts/**").hasAnyRole("ADMIN", "USER")
-//                        .requestMatchers(HttpMethod.GET, "/api/balances/**").hasAnyRole("ADMIN", "USER")
-//                        .requestMatchers(HttpMethod.GET, "/api/transactions/account/**").hasAnyRole("ADMIN", "USER")
+                        //.requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(handling -> {
                     handling.authenticationEntryPoint(new JwtAuthenticationEntryPoint());

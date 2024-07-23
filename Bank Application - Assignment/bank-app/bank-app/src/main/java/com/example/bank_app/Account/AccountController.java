@@ -2,6 +2,7 @@ package com.example.bank_app.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class AccountController {
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
@@ -33,24 +34,24 @@ public class AccountController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        Account createdAccount = accountService.saveAccount(account);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
-    }
+//    @PostMapping("/create-account")
+//    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+//        Account createdAccount = accountService.saveAccount(account);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
+//    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account account) {
-        Account existingAccount = accountService.getAccountById(id);
-        if (existingAccount != null) {
-            account.setId(id);
-            Account updatedAccount = accountService.saveAccount(account);
-            return ResponseEntity.ok(updatedAccount);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account account) {
+//        Account existingAccount = accountService.getAccountById(id);
+//        if (existingAccount != null) {
+//            account.setId(id);
+//            Account updatedAccount = accountService.saveAccount(account);
+//            return ResponseEntity.ok(updatedAccount);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+@PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
         Account existingAccount = accountService.getAccountById(id);
