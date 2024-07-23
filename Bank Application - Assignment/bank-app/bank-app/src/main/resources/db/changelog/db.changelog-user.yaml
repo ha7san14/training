@@ -48,9 +48,9 @@ databaseChangeLog:
         - insert:
             tableName: users
             columns:
-              - column:
-                  name: id
-                  value: '123'
+#              - column:
+#                  name: id
+#                  value: '123'
               - column:
                   name:  username
                   value: 'admin'

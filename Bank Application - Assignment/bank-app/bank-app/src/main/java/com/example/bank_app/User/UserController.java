@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping
+    @GetMapping("/get-all-users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);

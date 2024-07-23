@@ -18,7 +18,7 @@ public class AccountController {
         this.accountService = accountService;
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping
+    @GetMapping("get-all-accounts")
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
         return ResponseEntity.ok(accounts);
