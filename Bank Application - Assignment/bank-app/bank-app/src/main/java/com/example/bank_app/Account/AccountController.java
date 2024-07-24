@@ -18,7 +18,7 @@ public class AccountController {
         this.accountService = accountService;
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    @GetMapping("get-all-accounts")
+    @GetMapping("/get-all-accounts")
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
         return ResponseEntity.ok(accounts);
@@ -51,7 +51,7 @@ public class AccountController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
-@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
         Account existingAccount = accountService.getAccountById(id);

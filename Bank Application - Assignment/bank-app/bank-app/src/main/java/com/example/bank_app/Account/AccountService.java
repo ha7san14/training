@@ -36,12 +36,10 @@ public class AccountService {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
             User user = account.getUser();
+            accountRepository.deleteById(id); // Delete the account first
             if (user != null) {
-                account.setUser(null);
-                accountRepository.save(account);
-                userRepository.deleteById(user.getId());
+                userRepository.deleteById(user.getId()); // Then delete the user
             }
-            accountRepository.deleteById(id);
         }
     }
 }

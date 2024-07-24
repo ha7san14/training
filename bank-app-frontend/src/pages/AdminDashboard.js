@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
-import { Route, Routes } from 'react-router-dom';
 import ManageUsers from './ManageUsers';
+import ManageBalance from './ManageBalance';
+import ManageTransactions from './ManageTransactions';
 
 const AdminDashboard = () => {
+  const [currentView, setCurrentView] = useState('manageUsers');
+
+  const renderContent = () => {
+    switch (currentView) {
+      case 'manageUsers':
+        return <ManageUsers />;
+      case 'manageBalance':
+        return <ManageBalance />;
+      case 'manageTransactions':
+        return <ManageTransactions />;
+      default:
+        return <ManageUsers />;
+    }
+  };
+
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1">
-        <Navbar />
-        <div className="p-4">
-          <Routes>
-            <Route path="/admin-dashboard/manage-users" element={<ManageUsers />} />
-            {/* Add routes for other pages */}
-          </Routes>
-        </div>
+    <div>
+      <Navbar currentView={currentView} setCurrentView={setCurrentView} />
+      <div className="p-4">
+        {renderContent()}
       </div>
     </div>
   );
