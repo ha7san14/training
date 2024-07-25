@@ -7,7 +7,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
   const handleLogin = async (event) => {
     event.preventDefault();
 
@@ -17,19 +16,22 @@ const LoginPage = () => {
         password,
       });
 
-      // Handle successful login: store the token
-      const token = response.data.token;
+      // Handle successful login: store the token and user role
+      const { token, user } = response.data;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('userRole', user.roles);
 
-      // Navigate to the admin dashboard
-      navigate('/admin-dashboard');
+      // Navigate based on role
+      if (user.roles === 'ADMIN') {
+        navigate('/admin-dashboard');
+      } else if (user.roles === 'ACCOUNTHOLDER') {
+        navigate('/user-dashboard');
+      }
     } catch (err) {
       if (err.response) {
-        // Handle errors from the server
         setError(err.response.data.message || 'Login failed');
       } else {
         console.error(err);
-        // Handle errors that are not from the server (e.g., network issues)
         setError('An unexpected error occurred');
       }
     }

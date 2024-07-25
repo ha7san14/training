@@ -77,6 +77,7 @@ const [userToEdit, setUserToEdit] = useState(null);
   const handleUpdateUser = async (user) => {
     try {
       const response = await axiosInstance.put(`/users/${user.id}`, user);
+      console.log(response);
       setUsers(users.map(u => (u.id === user.id ? response.data : u)));
       fetchUsers();
       setEditModalIsOpen(false);

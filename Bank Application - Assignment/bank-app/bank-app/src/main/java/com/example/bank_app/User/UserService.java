@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-        try {
+        //try {
             user.setRoles("ACCOUNTHOLDER");
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User newUser = userRepository.save(user);
@@ -49,10 +49,10 @@ public class UserService {
             account.setUser(newUser);
             accountRepository.save(account);
             return newUser;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error saving user or account", e);
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Error saving user or account", e);
+//        }
     }
 
     public User updateUser(User user, Long id) {
@@ -61,7 +61,10 @@ public class UserService {
         if (existingUser.isPresent()) {
             User userToUpdate = existingUser.get();
             userToUpdate.setUsername(user.getUsername());
-            userToUpdate.setPassword(user.getPassword());
+            //if (userToUpdate.getPassword() != null && !userToUpdate.getPassword().isEmpty()){
+            userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+            //}
+
             userToUpdate.setEmail(user.getEmail());
             userToUpdate.setAddress(user.getAddress());
             return userRepository.save(userToUpdate);
@@ -73,7 +76,7 @@ public class UserService {
     private String generateUniqueAccountNumber() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 12);
     }
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

@@ -66,3 +66,39 @@ databaseChangeLog:
               - column:
                   name:  address
                   value: 'Lahore'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'hassan'
+              - column:
+                  name: password
+                  value: $2a$12$aq2rQdOhIHWlo.ZxYiOoO.bo1ZP0e0v1Eq9fhbVi1zCVYFDXHmEC6
+              - column:
+                  name: email
+                  value: 'hassan@gmail.com'
+              - column:
+                  name: roles
+                  value: 'ACCOUNTHOLDER'
+              - column:
+                  name: address
+                  value: 'Kasur'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: 'ali'
+              - column:
+                  name: password
+                  value: $2a$12$U1LiGFr..H6K5FPl4Hx3S.xeE7ZDxUKU7rYSBkp6mIGjaJinoL5J6
+              - column:
+                  name: email
+                  value: 'ali@gmail.com'
+              - column:
+                  name: roles
+                  value: 'ACCOUNTHOLDER'
+              - column:
+                  name: address
+                  value: 'Lahore'

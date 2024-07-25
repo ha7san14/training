@@ -50,21 +50,21 @@ public class TransactionController {
         }
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<?> updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-//        Transaction existingTransaction = transactionService.getTransactionById(id);
-//        if (existingTransaction != null) {
-//            transaction.setId(id);
-//            try {
-//                Transaction updatedTransaction = transactionService.saveTransaction(transaction);
-//                return ResponseEntity.ok(updatedTransaction);
-//            } catch (Exception e) {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//            }
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+        Transaction existingTransaction = transactionService.getTransactionById(id);
+        if (existingTransaction != null) {
+            transaction.setId(id);
+            try {
+                Transaction updatedTransaction = transactionService.saveTransaction(transaction);
+                return ResponseEntity.ok(updatedTransaction);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {

@@ -30,6 +30,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
     if (!username) validationErrors.username = 'Username is required';
     if (!email) validationErrors.email = 'Email is required';
     if (!address) validationErrors.address = 'Address is required';
+    
 
     if (Object.keys(validationErrors).length === 0) {
       try {

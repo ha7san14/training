@@ -23,11 +23,11 @@ databaseChangeLog:
                   type: DECIMAL(19, 2)
                   constraints:
                     nullable: false
-              - column:
-                  name: indicator
-                  type: VARCHAR(2)
-                  constraints:
-                    nullable: false
+#              - column:
+#                  name: indicator
+#                  type: VARCHAR(2)
+#                  constraints:
+#                    nullable: false
               - column:
                   name: account_id
                   type: BIGINT

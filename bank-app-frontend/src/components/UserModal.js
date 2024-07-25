@@ -35,6 +35,12 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
     }));
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+
   const handleCreateUser = async () => {
     const { username, password, email, address } = newUser;
     const validationErrors = {};
@@ -42,7 +48,11 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
     if (!username) validationErrors.username = 'Username is required';
     if (!password) validationErrors.password = 'Password is required';
     if (password.length > 0 && password.length < 6) validationErrors.password = 'Password must be at least 6 characters long';
-    if (!email) validationErrors.email = 'Email is required';
+    if (!email) {
+      validationErrors.email = 'Email is required';
+    } else if (!isValidEmail(email)) {
+      validationErrors.email = 'Invalid email address';
+    }
     if (!address) validationErrors.address = 'Address is required';
 
     if (Object.keys(validationErrors).length === 0) {

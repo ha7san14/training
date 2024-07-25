@@ -24,7 +24,7 @@ public class Balance {
     private BigDecimal amount;
 
     //@Column(nullable = false)
-    private String indicator;
+//    private String indicator;
 
     @OneToOne
     @JoinColumn(name = "account_id", nullable = false)
