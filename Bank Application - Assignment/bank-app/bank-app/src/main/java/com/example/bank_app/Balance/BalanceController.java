@@ -34,6 +34,15 @@ public class BalanceController {
         }
     }
 
+    @GetMapping("/account/{accountId}")
+    public ResponseEntity<Balance> getBalanceByAccountId(@PathVariable Long accountId) {
+        Balance balance = balanceService.getBalanceByAccountId(accountId);
+        if (balance != null) {
+            return ResponseEntity.ok(balance);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @PostMapping("/create-balance")
     public ResponseEntity<Balance> createBalance(@RequestBody Balance balance) {
         Balance createdBalance = balanceService.saveBalance(balance);

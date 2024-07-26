@@ -1,5 +1,8 @@
 package com.example.bank_app.Transaction;
 
+import com.example.bank_app.exceptionhandling.AccountNotFoundException;
+import com.example.bank_app.exceptionhandling.InsufficientBalanceException;
+import com.example.bank_app.exceptionhandling.InvalidTransactionIndicatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +48,14 @@ public class TransactionController {
         try {
             Transaction createdTransaction = transactionService.saveTransaction(transaction);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdTransaction);
-        } catch (Exception e) {
+        } catch (InsufficientBalanceException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (AccountNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (InvalidTransactionIndicatorException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
 

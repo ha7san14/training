@@ -33,6 +33,15 @@ public class AccountController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Account> getAccountByUserId(@PathVariable Long userId) {
+        Account account = accountService.getAccountByUserId(userId);
+        if (account != null) {
+            return ResponseEntity.ok(account);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 //    @PostMapping("/create-account")
 //    public ResponseEntity<Account> createAccount(@RequestBody Account account) {

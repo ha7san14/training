@@ -6,6 +6,9 @@ import com.example.bank_app.Balance.Balance;
 import com.example.bank_app.Balance.BalanceRepository;
 import com.example.bank_app.Transaction.Transaction;
 import com.example.bank_app.Transaction.TransactionRepository;
+import com.example.bank_app.exceptionhandling.AccountNotFoundException;
+import com.example.bank_app.exceptionhandling.InsufficientBalanceException;
+import com.example.bank_app.exceptionhandling.InvalidTransactionIndicatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,33 +43,32 @@ public class TransactionService {
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         Account account = transaction.getAccount();
-       // account = accountRepository.findById(account.getId()).orElseThrow(() -> new Exception("Account not found"));
         Balance balance = balanceRepository.findByAccount(account);
 
         if (balance == null) {
-            throw new Exception("Balance not found for the account");
+            throw new AccountNotFoundException("Balance not found for the account");
         }
 
         if ("DB".equals(transaction.getIndicator())) {
             if (balance.getAmount().compareTo(transaction.getAmount()) < 0) {
-                throw new Exception("Insufficient balance for the transaction");
+                throw new InsufficientBalanceException("Insufficient balance for the transaction");
             }
             balance.setAmount(balance.getAmount().subtract(transaction.getAmount()));
         } else if ("CR".equals(transaction.getIndicator())) {
             balance.setAmount(balance.getAmount().add(transaction.getAmount()));
         } else {
-            throw new Exception("Invalid transaction indicator");
+            throw new InvalidTransactionIndicatorException("Invalid transaction indicator");
         }
 
         // Handle transfer to another account
         if (transaction.getReceiver_account_number() != null) {
             Account receiverAccount = accountRepository.findByAccountNumber(transaction.getReceiver_account_number());
             if (receiverAccount == null) {
-                throw new Exception("Receiver account not found");
+                throw new AccountNotFoundException("Receiver account not found");
             }
             Balance receiverBalance = balanceRepository.findByAccount(receiverAccount);
             if (receiverBalance == null) {
-                throw new Exception("Balance not found for the receiver account");
+                throw new AccountNotFoundException("Balance not found for the receiver account");
             }
             receiverBalance.setAmount(receiverBalance.getAmount().add(transaction.getAmount()));
             balanceRepository.save(receiverBalance);
@@ -88,6 +90,7 @@ public class TransactionService {
 
         return transaction;
     }
+
 
 
     public void deleteTransaction(Long id) {

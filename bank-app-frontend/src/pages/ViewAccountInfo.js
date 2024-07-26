@@ -1,67 +1,85 @@
+// ViewAccountInfo.js
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Make sure you have axios installed
+import axiosInstance from '../api/axiosConfig';
 
 const ViewAccountInfo = () => {
-  const [userData, setUserData] = useState(null);
-  const [accountData, setAccountData] = useState(null);
-  const [balanceData, setBalanceData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [accountInfo, setAccountInfo] = useState(null);
+  const [balanceInfo, setBalanceInfo] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch the user ID from local storage or other state management
-  const userId = localStorage.getItem('userId');
+  const getUserId = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user ? user.id : null;
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAccountInfo = async () => {
       try {
-        // Fetch user details
-        const userResponse = await axios.get(`/api/users/${userId}`);
-        setUserData(userResponse.data);
-
-        // Fetch account details using user ID
-        const accountResponse = await axios.get(`/api/accounts/user/${userId}`);
-        setAccountData(accountResponse.data);
-
-        // Fetch balance details using account ID
-        if (accountResponse.data) {
-          const balanceResponse = await axios.get(`/api/balances/${accountResponse.data.id}`);
-          setBalanceData(balanceResponse.data);
+        const userId = getUserId();
+        if (!userId) {
+          setError('User ID not found.');
+          return;
         }
 
-        setLoading(false);
+        // Fetch account information
+        const accountResponse = await axiosInstance.get(`/accounts/user/${userId}`);
+        if (accountResponse.data) {
+          setAccountInfo(accountResponse.data);
+
+          // Fetch balance information using the accountId from accountInfo
+          const accountId = accountResponse.data.id;
+          const balanceResponse = await axiosInstance.get(`/balances/account/${accountId}`);
+          setBalanceInfo(balanceResponse.data);
+        } else {
+          setError('Account not found for the current user.');
+        }
       } catch (err) {
-        setError('An error occurred while fetching data.');
-        setLoading(false);
+        setError('Error fetching account information.');
       }
     };
 
-    fetchData();
-  }, [userId]);
+    fetchAccountInfo();
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) {
+    return <div className="p-4 text-red-500">{error}</div>;
+  }
+
+  if (!accountInfo || !balanceInfo) {
+    return <div className="p-4">Loading...</div>;
+  }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Account Information</h2>
-      {userData && accountData && balanceData ? (
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div className="bg-gray-800 text-white p-4 rounded-t-lg">
+          <h2 className="text-2xl font-bold">Account Information</h2>
+        </div>
+        <div className="p-6">
           <div className="mb-4">
-            <strong>Username:</strong> {userData.username}
-          </div>
-          <div className="mb-4">
-            <strong>Email:</strong> {userData.email}
-          </div>
-          <div className="mb-4">
-            <strong>Account Number:</strong> {accountData.accountNumber}
-          </div>
-          <div className="mb-4">
-            <strong>Balance Amount:</strong> ${balanceData.amount}
+            <div className="flex items-center mb-2">
+              <span className="font-semibold text-gray-700 w-1/3">Username:</span>
+              <span className="text-gray-900">{accountInfo.user.username}</span>
+            </div>
+            <div className="flex items-center mb-2">
+              <span className="font-semibold text-gray-700 w-1/3">Email:</span>
+              <span className="text-gray-900">{accountInfo.user.email}</span>
+            </div>
+            <div className="flex items-center mb-2">
+              <span className="font-semibold text-gray-700 w-1/3">Address:</span>
+              <span className="text-gray-900">{accountInfo.user.address}</span>
+            </div>
+            <div className="flex items-center mb-2">
+              <span className="font-semibold text-gray-700 w-1/3">Account Number:</span>
+              <span className="text-gray-900">{accountInfo.accountNumber}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="font-semibold text-gray-700 w-1/3">Balance:</span>
+              <span className="text-gray-900">{balanceInfo.amount}</span>
+            </div>
           </div>
         </div>
-      ) : (
-        <div>No data available</div>
-      )}
+      </div>
     </div>
   );
 };

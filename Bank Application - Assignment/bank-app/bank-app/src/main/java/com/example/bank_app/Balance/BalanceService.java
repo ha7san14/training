@@ -21,7 +21,9 @@ public class BalanceService {
     public Balance getBalanceById(Long id) {
         return balanceRepository.findById(id).orElse(null);
     }
-
+    public Balance getBalanceByAccountId(Long accountId) {
+        return balanceRepository.findByAccountId(accountId);
+    }
     public Balance saveBalance(Balance balance) {
         return balanceRepository.save(balance);
     }

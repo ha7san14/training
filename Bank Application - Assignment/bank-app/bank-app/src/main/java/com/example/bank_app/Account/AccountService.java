@@ -26,6 +26,9 @@ public class AccountService {
     public Account getAccountById(Long id) {
         return accountRepository.findById(id).orElse(null);
     }
+    public Account getAccountByUserId(Long userId) {
+        return accountRepository.findByUserId(userId);
+    }
 
     public Account saveAccount(Account account) {
         return accountRepository.save(account);

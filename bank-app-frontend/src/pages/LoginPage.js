@@ -20,6 +20,7 @@ const LoginPage = () => {
       const { token, user } = response.data;
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('userRole', user.roles);
+      localStorage.setItem('user', JSON.stringify(user));
 
       // Navigate based on role
       if (user.roles === 'ADMIN') {
