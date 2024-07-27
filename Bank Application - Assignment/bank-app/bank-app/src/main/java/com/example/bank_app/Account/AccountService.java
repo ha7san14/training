@@ -1,4 +1,6 @@
 package com.example.bank_app.Account;
+import com.example.bank_app.Balance.Balance;
+import com.example.bank_app.Balance.BalanceRepository;
 import com.example.bank_app.User.User;
 import com.example.bank_app.User.UserRepository;
 import jakarta.transaction.Transactional;
@@ -12,11 +14,13 @@ public class AccountService {
 
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final BalanceRepository balanceRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository) {
+    public AccountService(AccountRepository accountRepository, UserRepository userRepository,BalanceRepository balanceRepository) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
+        this.balanceRepository = balanceRepository;
     }
 
     public List<Account> getAllAccounts() {
@@ -38,6 +42,12 @@ public class AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
+            // Find and delete the balance associated with the account
+            Balance balance = balanceRepository.findByAccountId(account.getId());
+            if (balance != null) {
+                balanceRepository.delete(balance);
+            }
+
             User user = account.getUser();
             accountRepository.deleteById(id); // Delete the account first
             if (user != null) {

@@ -15,6 +15,7 @@ function App() {
   const role = localStorage.getItem('userRole');
 
   const ProtectedRoute = ({ children, roleRequired }) => {
+    console.log(token,role);
     if (!token) {
       return <Navigate to="/" />;
     }

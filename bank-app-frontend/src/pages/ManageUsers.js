@@ -59,6 +59,7 @@ const [userToEdit, setUserToEdit] = useState(null);
       const response = await axiosInstance.post('/users/create-user', user);
       setUsers([...users, response.data]); // Update users list with the new user
       fetchUsers(); // Refresh user list
+      await fetchAccounts();
       setModalIsOpen(false);
     } catch (error) {
       console.error('Error creating user:', error);
