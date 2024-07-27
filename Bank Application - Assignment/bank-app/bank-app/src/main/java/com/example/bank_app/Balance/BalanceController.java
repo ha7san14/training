@@ -1,6 +1,5 @@
 package com.example.bank_app.Balance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +42,11 @@ public class BalanceController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping("/create-balance")
-    public ResponseEntity<Balance> createBalance(@RequestBody Balance balance) {
-        Balance createdBalance = balanceService.saveBalance(balance);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdBalance);
-    }
+//    @PostMapping("/create-balance")
+//    public ResponseEntity<Balance> createBalance(@RequestBody Balance balance) {
+//        Balance createdBalance = balanceService.saveBalance(balance);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdBalance);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Balance> updateBalance(@PathVariable Long id, @RequestBody Balance balance) {

@@ -17,14 +17,9 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(nullable = false)
     private LocalDateTime date;
 
-    //@Column(nullable = false)
     private BigDecimal amount;
-
-    //@Column(nullable = false)
-//    private String indicator;
 
     @OneToOne
     @JoinColumn(name = "account_id", nullable = false)

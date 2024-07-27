@@ -4,15 +4,11 @@ import com.example.bank_app.Account.Account;
 import com.example.bank_app.Account.AccountRepository;
 import com.example.bank_app.Balance.Balance;
 import com.example.bank_app.Balance.BalanceRepository;
-import com.example.bank_app.Transaction.Transaction;
-import com.example.bank_app.Transaction.TransactionRepository;
 import com.example.bank_app.exceptionhandling.AccountNotFoundException;
 import com.example.bank_app.exceptionhandling.InsufficientBalanceException;
 import com.example.bank_app.exceptionhandling.InvalidTransactionIndicatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -23,11 +23,6 @@ databaseChangeLog:
                   type: DECIMAL(19, 2)
                   constraints:
                     nullable: false
-#              - column:
-#                  name: indicator
-#                  type: VARCHAR(2)
-#                  constraints:
-#                    nullable: false
               - column:
                   name: account_id
                   type: BIGINT
@@ -39,5 +34,32 @@ databaseChangeLog:
             referencedTableName: account
             referencedColumnNames: id
             constraintName: fk_balance_user
-
+  - changeSet:
+      id: 3.1
+      author: hassan
+      changes:
+        - insert:
+            tableName: balance
+            columns:
+              - column:
+                  name: date
+                  value: '2024-07-27T10:00:00'
+              - column:
+                  name: amount
+                  value: '2000.00'
+              - column:
+                  name: account_id
+                  value: '1'
+        - insert:
+             tableName: balance
+             columns:
+               - column:
+                   name: date
+                   value: '2024-07-27T11:00:00'
+               - column:
+                   name: amount
+                   value: '1500.00'
+               - column:
+                   name: account_id
+                   value: '2'
 

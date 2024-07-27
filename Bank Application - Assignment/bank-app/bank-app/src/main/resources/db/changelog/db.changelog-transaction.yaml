@@ -49,3 +49,92 @@ databaseChangeLog:
             referencedTableName: account
             referencedColumnNames: id
             constraintName: fk_transaction_user
+  - changeSet:
+      id: 4.1
+      author: hassan
+      changes:
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: date
+                  value: '2024-07-27T12:00:00'
+              - column:
+                  name: description
+                  value: 'Payment for Medicine'
+              - column:
+                  name: amount
+                  value: '200.00'
+              - column:
+                  name: indicator
+                  value: 'DB'
+              - column:
+                  name: receiver_account_number
+                  value: '456'
+              - column:
+                  name: account_id
+                  value: '1'
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: date
+                  value: '2024-07-27T12:00:00'
+              - column:
+                  name: description
+                  value: 'Payment for Medicine'
+              - column:
+                  name: amount
+                  value: '200.00'
+              - column:
+                  name: indicator
+                  value: 'CR'
+              - column:
+                  name: receiver_account_number
+                  value: '123'
+              - column:
+                  name: account_id
+                  value: '2'
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: date
+                  value: '2024-07-27T13:00:00'
+              - column:
+                  name: description
+                  value: 'Deposit from Client'
+              - column:
+                  name: amount
+                  value: '700.00'
+              - column:
+                  name: indicator
+                  value: 'DB'
+              - column:
+                  name: receiver_account_number
+                  value: '456'
+              - column:
+                  name: account_id
+                  value: '1'
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: date
+                  value: '2024-07-27T13:00:00'
+              - column:
+                  name: description
+                  value: 'Deposit from Client'
+              - column:
+                  name: amount
+                  value: '700.00'
+              - column:
+                  name: indicator
+                  value: 'CR'
+              - column:
+                  name: receiver_account_number
+                  value: '123'
+              - column:
+                  name: account_id
+                  value: '2'
+

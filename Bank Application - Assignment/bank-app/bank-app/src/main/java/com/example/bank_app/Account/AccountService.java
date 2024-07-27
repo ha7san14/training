@@ -42,16 +42,15 @@ public class AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
-            // Find and delete the balance associated with the account
             Balance balance = balanceRepository.findByAccountId(account.getId());
             if (balance != null) {
                 balanceRepository.delete(balance);
             }
 
             User user = account.getUser();
-            accountRepository.deleteById(id); // Delete the account first
+            accountRepository.deleteById(id);
             if (user != null) {
-                userRepository.deleteById(user.getId()); // Then delete the user
+                userRepository.deleteById(user.getId());
             }
         }
     }

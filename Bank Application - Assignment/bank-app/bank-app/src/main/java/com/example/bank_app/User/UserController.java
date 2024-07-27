@@ -57,15 +57,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-//        User existingUser = userService.getUserById(id);
-//        if (existingUser != null) {
-//            userService.deleteUser(id);
-//            return ResponseEntity.noContent().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 }

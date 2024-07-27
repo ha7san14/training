@@ -46,7 +46,6 @@ public class UserService {
     @Transactional
     public User saveUser(User user) {
         try {
-            // Encode the password if necessary
             String password = user.getPassword();
             if (!password.startsWith("$2a$")) {
                 user.setPassword(passwordEncoder.encode(password));
@@ -56,7 +55,6 @@ public class UserService {
             User newUser = userRepository.save(user);
             logger.info("User saved with ID: " + newUser.getId());
 
-            // Check if the user already has an associated account
             Account existingAccount = accountRepository.findByUserId(newUser.getId());
             if (existingAccount == null) {
                 Account account = new Account();
