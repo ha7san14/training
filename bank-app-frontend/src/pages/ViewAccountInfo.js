@@ -51,32 +51,28 @@ const ViewAccountInfo = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <div className="bg-gray-800 text-white p-4 rounded-t-lg">
-          <h2 className="text-2xl font-bold">Account Information</h2>
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col items-center gap-2 border-b pb-4 bg-gray-800 text-white rounded-t-lg">
+          <div className="h-16 w-16 rounded-full mt-4 bg-gray-300 flex items-center justify-center">
+            <span className="text-2xl">{accountInfo.user.username.charAt(0)}</span>
+          </div>
+          <div className="text-center">
+            <div className="font-medium">{accountInfo.user.username}</div>
+            <div className="text-gray-400">{accountInfo.user.email}</div>
+          </div>
         </div>
-        <div className="p-6">
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <span className="font-semibold text-gray-700 w-1/3">Username:</span>
-              <span className="text-gray-900">{accountInfo.user.username}</span>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="font-semibold text-gray-700 w-1/3">Email:</span>
-              <span className="text-gray-900">{accountInfo.user.email}</span>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="font-semibold text-gray-700 w-1/3">Address:</span>
-              <span className="text-gray-900">{accountInfo.user.address}</span>
-            </div>
-            <div className="flex items-center mb-2">
-              <span className="font-semibold text-gray-700 w-1/3">Account Number:</span>
-              <span className="text-gray-900">{accountInfo.accountNumber}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="font-semibold text-gray-700 w-1/3">Balance:</span>
-              <span className="text-gray-900">{balanceInfo.amount}</span>
-            </div>
+        <div className="grid gap-4 p-6">
+          <div className="grid gap-1">
+            <label htmlFor="address" className="font-semibold text-gray-700">Address</label>
+            <div className="text-gray-900">{accountInfo.user.address}</div>
+          </div>
+          <div className="grid gap-1">
+            <label htmlFor="account-number" className="font-semibold text-gray-700">Account Number</label>
+            <div className="text-gray-900">{accountInfo.accountNumber}</div>
+          </div>
+          <div className="grid gap-1">
+            <label htmlFor="balance" className="font-semibold text-gray-700">Current Balance</label>
+            <div className="text-gray-900">Rs {balanceInfo.amount}</div>
           </div>
         </div>
       </div>

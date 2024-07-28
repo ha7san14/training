@@ -963,3 +963,21 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
 	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-07-28 01:02:44.767117+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]
+2024-07-28 01:02:51.247397+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]
+2024-07-28 01:02:59.007941+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]
+2024-07-28 01:16:41.645064+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]
+2024-07-28 01:16:47.318808+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]
+2024-07-28 01:16:52.939578+05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BALANCE" not found; SQL statement:
+INSERT INTO PUBLIC.balance (date, amount, account_id) VALUES ('2024-07-27T10:00:00', '2000.00', '1') [42102-224]

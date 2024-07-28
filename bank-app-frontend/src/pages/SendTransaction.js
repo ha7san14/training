@@ -103,7 +103,7 @@ const SendTransaction = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Current Balance:</label>
-            <div className="text-gray-900 font-semibold">${currentBalance !== null ? currentBalance.toFixed(2) : 'Loading...'}</div>
+            <div className="text-gray-900 font-semibold">Rs {currentBalance !== null ? currentBalance.toFixed(2) : 'Loading...'}</div>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Receiver Account Number:</label>

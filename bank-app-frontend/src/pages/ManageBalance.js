@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axiosInstance from '../api/axiosConfig'; // Ensure this is correctly configured
-import FilterModal from '../components/FilterModal'; // Import the date filter modal component
-import 'react-datepicker/dist/react-datepicker.css'; // Import datepicker styles
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../api/axiosConfig"; // Ensure this is correctly configured
+import {
+  AiOutlineEdit,
+  AiOutlineDelete,
+  AiOutlineSearch,
+} from "react-icons/ai";
+import FilterModal from "../components/FilterModal"; // Import the date filter modal component
+import "react-datepicker/dist/react-datepicker.css"; // Import datepicker styles
 
 const ManageBalance = () => {
   const [balances, setBalances] = useState([]);
@@ -11,20 +16,22 @@ const ManageBalance = () => {
   const [usernameMap, setUsernameMap] = useState({}); // Maps accountId to username
   const [filterModalIsOpen, setFilterModalIsOpen] = useState(false);
   const [filterDate, setFilterDate] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchBalances = async () => {
     try {
-      const response = await axiosInstance.get('/balances'); // Adjust the endpoint as necessary
-      setBalances(response.data);
-      setFilteredBalances(response.data); // Initialize filteredBalances
+      const response = await axiosInstance.get("/balances"); // Adjust the endpoint as necessary
+      const sortedBalances = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date
+      setBalances(sortedBalances);
+      setFilteredBalances(sortedBalances); // Initialize filteredBalances
     } catch (error) {
-      console.error('Error fetching balances:', error);
+      console.error("Error fetching balances:", error);
     }
   };
 
   const fetchAccounts = async () => {
     try {
-      const response = await axiosInstance.get('/accounts/get-all-accounts'); // Adjust endpoint
+      const response = await axiosInstance.get("/accounts/get-all-accounts"); // Adjust endpoint
       setAccounts(response.data);
 
       // Create maps for accountId and accountNumber
@@ -42,7 +49,7 @@ const ManageBalance = () => {
       setAccountNumberMap(accountNumberMap);
       setUsernameMap(usernameMap);
     } catch (error) {
-      console.error('Error fetching accounts:', error);
+      console.error("Error fetching accounts:", error);
     }
   };
 
@@ -54,7 +61,7 @@ const ManageBalance = () => {
   const handleDateChange = (date) => {
     setFilterDate(date);
     if (date) {
-      const filtered = balances.filter(balance => {
+      const filtered = balances.filter((balance) => {
         const balanceDate = new Date(balance.date).setHours(0, 0, 0, 0);
         const selectedDate = date.setHours(0, 0, 0, 0);
         return balanceDate === selectedDate;
@@ -69,11 +76,38 @@ const ManageBalance = () => {
     setFilteredBalances(balances);
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value === "") {
+      setFilteredBalances(balances);
+    } else {
+      const filtered = balances.filter((balance) =>
+        usernameMap[balance.account.id]
+          ?.toLowerCase()
+          .includes(e.target.value.toLowerCase())
+      );
+      setFilteredBalances(filtered);
+    }
+  };
+
   return (
     <div className="p-4">
       <div className="bg-gray-800 text-white p-4 rounded-t-2xl">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl">Manage Balance</h2>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search by username"
+              value={searchTerm}
+              onChange={handleSearch}
+              className="pl-4 pr-10 py-2 rounded-2xl border border-gray-300"
+              style={{ color: "black" }}
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <AiOutlineSearch className="text-gray-500" />
+            </div>
+          </div>
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setFilterModalIsOpen(true)}
@@ -96,7 +130,9 @@ const ManageBalance = () => {
             <tr>
               <th className="w-1/12 px-4 py-2 font-bold text-left">Sr.</th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Username</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Account Number</th>
+              <th className="w-2/12 px-4 py-2 font-bold text-left">
+                Account Number
+              </th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Date</th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Amount</th>
             </tr>
@@ -104,19 +140,27 @@ const ManageBalance = () => {
           <tbody>
             {filteredBalances.length === 0 ? (
               <tr>
-                <td colSpan="6" className="text-center py-4">No balances right now</td>
+                <td colSpan="6" className="text-center py-4">
+                  No balances right now
+                </td>
               </tr>
             ) : (
               filteredBalances.map((balance, index) => (
                 <tr
                   key={balance.id}
-                  className={index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}
+                  className={index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
                 >
                   <td className="border px-4 py-2 text-center">{index + 1}</td>
-                  <td className="border px-4 py-2">{usernameMap[balance.account.id] || 'Unknown'}</td>
-                  <td className="border px-4 py-2">{accountNumberMap[balance.account.id] || 'Unknown'}</td>
-                  <td className="border px-4 py-2">{new Date(balance.date).toLocaleDateString()}</td>
-                  <td className="border px-4 py-2">{balance.amount || 0}</td>
+                  <td className="border px-4 py-2">
+                    {usernameMap[balance.account.id] || "Unknown"}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {accountNumberMap[balance.account.id] || "Unknown"}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {new Date(balance.date).toLocaleDateString()}
+                  </td>
+                  <td className="border px-4 py-2">Rs {balance.amount || 0}</td>
                 </tr>
               ))
             )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../api/axiosConfig'; // Use axiosInstance for consistent API calls
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai'; // Import arrow icons
+import { AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineSearch } from 'react-icons/ai'; // Import arrow icons
 import FilterModal from '../components/FilterModal';
 
 const ManageTransactions = () => {
@@ -12,12 +12,14 @@ const ManageTransactions = () => {
   const [userMap, setUserMap] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [filterDate, setFilterDate] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchTransactions = async () => {
     try {
       const response = await axiosInstance.get('/transactions');
-      setTransactions(response.data);
-      setFilteredTransactions(response.data);
+      const sortedTransactions = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort transactions by date descending
+      setTransactions(sortedTransactions);
+      setFilteredTransactions(sortedTransactions);
     } catch (error) {
       console.error('Error fetching transactions:', error);
     }
@@ -71,6 +73,8 @@ const ManageTransactions = () => {
         return transactionDate === selectedDate;
       });
       setFilteredTransactions(filtered);
+    }else{
+      setFilteredTransactions(transactions);
     }
     setShowModal(false);
   };
@@ -80,11 +84,38 @@ const ManageTransactions = () => {
     setFilteredTransactions(transactions);
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value === "") {
+      setFilteredTransactions(transactions);
+    } else {
+      const filtered = transactions.filter((transaction) => {
+        const account = accountMap[transaction.account.id];
+        const username = account ? userMap[account.userId] : 'Unknown';
+        return username.toLowerCase().includes(e.target.value.toLowerCase());
+      });
+      setFilteredTransactions(filtered);
+    }
+  };
+
   return (
     <div className="p-4">
       <div className="bg-gray-800 text-white p-4 rounded-t-2xl ">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl">Manage Transactions</h2>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search by username"
+              value={searchTerm}
+              onChange={handleSearch}
+              className="pl-4 pr-10 py-2 rounded-2xl border border-gray-300"
+              style={{ color: "black" }}
+            />
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <AiOutlineSearch className="text-gray-500" />
+            </div>
+          </div>
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setShowModal(true)}
@@ -134,7 +165,7 @@ const ManageTransactions = () => {
                     <td className="border px-4 py-2">{transaction.date}</td>
                     <td className="border px-4 py-2">{transaction.description}</td>
                     <td className="border px-4 py-2 flex items-center">
-                      {transaction.amount}
+                      Rs {transaction.amount}
                       {transaction.indicator === 'CR' ? (
                         <AiOutlineArrowUp className="ml-2 text-green-500" />
                       ) : transaction.indicator === 'DB' ? (

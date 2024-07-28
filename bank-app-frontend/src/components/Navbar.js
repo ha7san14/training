@@ -1,10 +1,13 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation to get the current route
+import { AiOutlineUser } from 'react-icons/ai';
+import logo from '../assets/logo.svg';
 
 const Navbar = ({ currentView, setCurrentView }) => {
   const navigate = useNavigate();
   const location = useLocation(); // Get the current location
   const role = localStorage.getItem('userRole');
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = () => {
     localStorage.removeItem('jwtToken');
@@ -30,6 +33,7 @@ const Navbar = ({ currentView, setCurrentView }) => {
   return (
     <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
       <div className="flex items-center ml-4">
+        <img src={logo} alt="Bank Application Logo" className="h-8 mr-2" />
         <h1 className="text-2xl font-bold">Bank Application</h1>
       </div>
       <ul className="flex space-x-8">
@@ -51,12 +55,20 @@ const Navbar = ({ currentView, setCurrentView }) => {
           </li>
         ))}
       </ul>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 text-white py-2 px-4 mr-4 rounded-lg hover:bg-red-600"
-      >
-        Logout
-      </button>
+      <div className="flex items-center mr-4">
+        <AiOutlineUser className="mr-2 text-2xl" />
+        {role === 'ADMIN' ? (
+          <span className="mr-4 text-md font-semibold">Admin</span>
+        ) : (
+          <span className="mr-4 text-md font-semibold">{user?.username}</span>
+        )}
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
     </nav>
   );
 };

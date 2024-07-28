@@ -60,7 +60,8 @@ public class UserService {
                 Account account = new Account();
                 account.setAccountNumber(generateUniqueAccountNumber());
                 account.setUser(newUser);
-                Account newAccount = accountRepository.save(account);
+                accountRepository.save(account);
+                //Account newAccount =
                 // newUser.setAccount(newAccount);
                 // userRepository.save(newUser);
             } else {
