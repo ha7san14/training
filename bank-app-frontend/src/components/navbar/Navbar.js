@@ -1,34 +1,33 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'; // Import useLocation to get the current route
-import { AiOutlineUser } from 'react-icons/ai';
-import logo from '../assets/logo.svg';
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { AiOutlineUser } from "react-icons/ai";
+import logo from "../../assets/logo.svg";
 
 const Navbar = ({ currentView, setCurrentView }) => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
-  const role = localStorage.getItem('userRole');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const location = useLocation();
+  const role = localStorage.getItem("userRole");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('userRole');
-    navigate('/');
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("userRole");
+    navigate("/");
   };
 
-  // Define navigation items based on role
   const adminNavItems = [
-    { name: 'Manage Users', view: 'manageUsers' },
-    { name: 'Manage Balance', view: 'manageBalance' },
-    { name: 'Manage Transactions', view: 'manageTransactions'},
+    { name: "Manage Users", view: "manageUsers" },
+    { name: "Manage Balance", view: "manageBalance" },
+    { name: "Manage Transactions", view: "manageTransactions" },
   ];
 
   const userNavItems = [
-    { name: 'View Account Information', view: 'viewAccountInfo' },
-    { name: 'View Transaction History', view: 'viewTransactionHistory' },
-    { name: 'Send Transaction', view: 'sendTransaction'},
+    { name: "View Account Information", view: "viewAccountInfo" },
+    { name: "View Transaction History", view: "viewTransactionHistory" },
+    { name: "Send Transaction", view: "sendTransaction" },
   ];
 
-  const navItems = role === 'ADMIN' ? adminNavItems : userNavItems;
+  const navItems = role === "ADMIN" ? adminNavItems : userNavItems;
 
   return (
     <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
@@ -46,8 +45,8 @@ const Navbar = ({ currentView, setCurrentView }) => {
               }}
               className={`pb-2 ${
                 currentView === item.view || location.pathname === item.path
-                  ? 'border-b-2 border-white'
-                  : 'hover:border-b-2 hover:border-gray-400'
+                  ? "border-b-2 border-white"
+                  : "hover:border-b-2 hover:border-gray-400"
               }`}
             >
               {item.name}
@@ -57,7 +56,7 @@ const Navbar = ({ currentView, setCurrentView }) => {
       </ul>
       <div className="flex items-center mr-4">
         <AiOutlineUser className="mr-2 text-2xl" />
-        {role === 'ADMIN' ? (
+        {role === "ADMIN" ? (
           <span className="mr-4 text-md font-semibold">Admin</span>
         ) : (
           <span className="mr-4 text-md font-semibold">{user?.username}</span>

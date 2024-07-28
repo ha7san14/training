@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axiosInstance from '../api/axiosConfig'; // Use axiosInstance for consistent API calls
-import { AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineSearch } from 'react-icons/ai'; // Import arrow icons
-import FilterModal from '../components/FilterModal';
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../api/axiosConfig";
+import {
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+  AiOutlineSearch,
+} from "react-icons/ai";
+import FilterModal from "../../components/filtermodal/FilterModal";
 
 const ManageTransactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -16,18 +20,20 @@ const ManageTransactions = () => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axiosInstance.get('/transactions');
-      const sortedTransactions = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort transactions by date descending
+      const response = await axiosInstance.get("/transactions");
+      const sortedTransactions = response.data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
       setTransactions(sortedTransactions);
       setFilteredTransactions(sortedTransactions);
     } catch (error) {
-      console.error('Error fetching transactions:', error);
+      console.error("Error fetching transactions:", error);
     }
   };
 
   const fetchUsers = async () => {
     try {
-      const response = await axiosInstance.get('/users/get-all-users');
+      const response = await axiosInstance.get("/users/get-all-users");
       setUsers(response.data);
 
       const userMap = response.data.reduce((acc, user) => {
@@ -36,25 +42,25 @@ const ManageTransactions = () => {
       }, {});
       setUserMap(userMap);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
   };
 
   const fetchAccounts = async () => {
     try {
-      const response = await axiosInstance.get('/accounts/get-all-accounts');
+      const response = await axiosInstance.get("/accounts/get-all-accounts");
       setAccounts(response.data);
 
       const accountMap = response.data.reduce((acc, account) => {
         acc[account.id] = {
           accountNumber: account.accountNumber,
-          userId: account.user.id
+          userId: account.user.id,
         };
         return acc;
       }, {});
       setAccountMap(accountMap);
     } catch (error) {
-      console.error('Error fetching accounts:', error);
+      console.error("Error fetching accounts:", error);
     }
   };
 
@@ -64,16 +70,16 @@ const ManageTransactions = () => {
     fetchAccounts();
   }, []);
 
-  const handleDateChange = date => {
+  const handleDateChange = (date) => {
     setFilterDate(date);
     if (date) {
-      const filtered = transactions.filter(transaction => {
+      const filtered = transactions.filter((transaction) => {
         const transactionDate = new Date(transaction.date).setHours(0, 0, 0, 0);
         const selectedDate = date.setHours(0, 0, 0, 0);
         return transactionDate === selectedDate;
       });
       setFilteredTransactions(filtered);
-    }else{
+    } else {
       setFilteredTransactions(transactions);
     }
     setShowModal(false);
@@ -91,7 +97,7 @@ const ManageTransactions = () => {
     } else {
       const filtered = transactions.filter((transaction) => {
         const account = accountMap[transaction.account.id];
-        const username = account ? userMap[account.userId] : 'Unknown';
+        const username = account ? userMap[account.userId] : "Unknown";
         return username.toLowerCase().includes(e.target.value.toLowerCase());
       });
       setFilteredTransactions(filtered);
@@ -138,37 +144,60 @@ const ManageTransactions = () => {
             <tr>
               <th className="w-1/12 px-4 py-2 font-bold text-left">Sr.</th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Username</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Sender Account Number</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Receiver Account Number</th>
-              <th className="w-1/12 px-4 py-2 font-bold text-left">Indicator</th>
+              <th className="w-2/12 px-4 py-2 font-bold text-left">
+                Sender Account Number
+              </th>
+              <th className="w-2/12 px-4 py-2 font-bold text-left">
+                Receiver Account Number
+              </th>
+              <th className="w-1/12 px-4 py-2 font-bold text-left">
+                Indicator
+              </th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Date</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Description</th>
+              <th className="w-2/12 px-4 py-2 font-bold text-left">
+                Description
+              </th>
               <th className="w-1/12 px-4 py-2 font-bold text-left">Amount</th>
             </tr>
           </thead>
           <tbody>
             {filteredTransactions.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center py-4">No transactions right now</td>
+                <td colSpan="8" className="text-center py-4">
+                  No transactions right now
+                </td>
               </tr>
             ) : (
               filteredTransactions.map((transaction, index) => {
                 const account = accountMap[transaction.account.id];
-                const username = account ? userMap[account.userId] : 'Unknown';
+                const username = account ? userMap[account.userId] : "Unknown";
                 return (
-                  <tr key={transaction.id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}>
-                    <td className="border px-4 py-2 text-center">{index + 1}</td>
+                  <tr
+                    key={transaction.id}
+                    className={index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
+                  >
+                    <td className="border px-4 py-2 text-center">
+                      {index + 1}
+                    </td>
                     <td className="border px-4 py-2">{username}</td>
-                    <td className="border px-4 py-2">{account ? account.accountNumber : 'Unknown'}</td>
-                    <td className="border px-4 py-2">{transaction.receiver_account_number}</td>
-                    <td className="border px-4 py-2">{transaction.indicator}</td>
+                    <td className="border px-4 py-2">
+                      {account ? account.accountNumber : "Unknown"}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {transaction.receiver_account_number}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {transaction.indicator}
+                    </td>
                     <td className="border px-4 py-2">{transaction.date}</td>
-                    <td className="border px-4 py-2">{transaction.description}</td>
+                    <td className="border px-4 py-2">
+                      {transaction.description}
+                    </td>
                     <td className="border px-4 py-2 flex items-center">
                       Rs {transaction.amount}
-                      {transaction.indicator === 'CR' ? (
+                      {transaction.indicator === "CR" ? (
                         <AiOutlineArrowUp className="ml-2 text-green-500" />
-                      ) : transaction.indicator === 'DB' ? (
+                      ) : transaction.indicator === "DB" ? (
                         <AiOutlineArrowDown className="ml-2 text-red-500" />
                       ) : null}
                     </td>
@@ -179,8 +208,6 @@ const ManageTransactions = () => {
           </tbody>
         </table>
       </div>
-
-      {/* Modal for Date Picker */}
       <FilterModal
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}

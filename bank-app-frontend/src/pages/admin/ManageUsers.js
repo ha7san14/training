@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../api/axiosConfig"; // Use axiosInstance for consistent API calls
+import axiosInstance from "../../api/axiosConfig";
 import {
   AiOutlineEdit,
   AiOutlineDelete,
   AiOutlineSearch,
-} from "react-icons/ai"; // Import modern icons from react-icons
-import UserModal from "../components/UserModal";
-import DeleteModal from "../components/DeleteModal";
-import EditUserModal from "../components/EditUserModal";
+} from "react-icons/ai";
+import UserModal from "../../components/usermodals/UserModal";
+import DeleteModal from "../../components/usermodals/DeleteModal";
+import EditUserModal from "../../components/usermodals/EditUserModal";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -15,11 +15,11 @@ const ManageUsers = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
-  const [userAccountMap, setUserAccountMap] = useState({}); // Maps userId to accountId
-  const [accountNumberMap, setAccountNumberMap] = useState({}); // Maps userId to accountNumber
+  const [userAccountMap, setUserAccountMap] = useState({});
+  const [accountNumberMap, setAccountNumberMap] = useState({});
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchUsers = async () => {
     try {
@@ -32,17 +32,16 @@ const ManageUsers = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axiosInstance.get("/accounts/get-all-accounts"); // Adjust the endpoint as necessary
+      const response = await axiosInstance.get("/accounts/get-all-accounts");
       setAccounts(response.data);
 
-      // Create maps for accountId and accountNumber
       const userAccountIdMap = response.data.reduce((acc, account) => {
-        acc[account.user.id] = account.id; // Map userId to accountId
+        acc[account.user.id] = account.id;
         return acc;
       }, {});
 
       const userAccountNumberMap = response.data.reduce((acc, account) => {
-        acc[account.user.id] = account.accountNumber; // Map userId to accountNumber
+        acc[account.user.id] = account.accountNumber;
         return acc;
       }, {});
 
@@ -64,8 +63,8 @@ const ManageUsers = () => {
   const handleCreateUser = async (user) => {
     try {
       const response = await axiosInstance.post("/users/create-user", user);
-      setUsers([...users, response.data]); // Update users list with the new user
-      fetchUsers(); // Refresh user list
+      setUsers([...users, response.data]);
+      fetchUsers();
       await fetchAccounts();
       setModalIsOpen(false);
     } catch (error) {
@@ -96,14 +95,11 @@ const ManageUsers = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      // Get the accountId from the userAccountMap
       const accountId = userAccountMap[userId];
 
       if (accountId) {
-        // Delete the account using the accountId
         await axiosInstance.delete(`/accounts/${accountId}`);
 
-        // Update the users list after deletion
         setUsers(users.filter((user) => user.id !== userId));
         setDeleteModalIsOpen(false);
       } else {
@@ -124,7 +120,6 @@ const ManageUsers = () => {
     setUserToDelete(null);
   };
 
-  // Slice users to exclude the 0th index and filter by search term
   const displayedUsers = users
     .slice(1)
     .filter((user) =>
@@ -150,7 +145,7 @@ const ManageUsers = () => {
             </div>
           </div>
           <button
-            onClick={() => setModalIsOpen(true)} // Pass a proper user object here
+            onClick={() => setModalIsOpen(true)}
             className="bg-green-500 text-white py-2 px-4"
           >
             Create New User
@@ -195,12 +190,12 @@ const ManageUsers = () => {
                     <AiOutlineEdit
                       className="text-blue-500 cursor-pointer"
                       onClick={() => handleEditUser(user.id)}
-                      size={24} // Adjust the size as needed
+                      size={24}
                     />
                     <AiOutlineDelete
                       className="text-red-500 cursor-pointer"
                       onClick={() => handleOpenDeleteModal(user)}
-                      size={24} // Adjust the size as needed
+                      size={24}
                     />
                   </td>
                 </tr>
@@ -219,7 +214,7 @@ const ManageUsers = () => {
           isOpen={deleteModalIsOpen}
           onRequestClose={handleCloseDeleteModal}
           onDelete={() => handleDeleteUser(userToDelete.id)}
-          userName={userToDelete.username} // Pass username to the modal
+          userName={userToDelete.username}
         />
       )}
       {userToEdit && (

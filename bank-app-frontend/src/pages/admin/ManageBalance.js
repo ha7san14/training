@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../api/axiosConfig"; // Ensure this is correctly configured
+import axiosInstance from "../../api/axiosConfig";
 import {
   AiOutlineEdit,
   AiOutlineDelete,
   AiOutlineSearch,
 } from "react-icons/ai";
-import FilterModal from "../components/FilterModal"; // Import the date filter modal component
-import "react-datepicker/dist/react-datepicker.css"; // Import datepicker styles
+import FilterModal from "../../components/filtermodal/FilterModal";
+import EditBalanceModal from "../../components/balancemodals/EditBalanceModal";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ManageBalance = () => {
   const [balances, setBalances] = useState([]);
   const [filteredBalances, setFilteredBalances] = useState([]);
   const [accounts, setAccounts] = useState([]);
-  const [accountNumberMap, setAccountNumberMap] = useState({}); // Maps accountId to accountNumber
-  const [usernameMap, setUsernameMap] = useState({}); // Maps accountId to username
+  const [accountNumberMap, setAccountNumberMap] = useState({});
+  const [usernameMap, setUsernameMap] = useState({});
   const [filterModalIsOpen, setFilterModalIsOpen] = useState(false);
   const [filterDate, setFilterDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedBalance, setSelectedBalance] = useState(null);
 
   const fetchBalances = async () => {
     try {
-      const response = await axiosInstance.get("/balances"); // Adjust the endpoint as necessary
-      const sortedBalances = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date
+      const response = await axiosInstance.get("/balances");
+      const sortedBalances = response.data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
       setBalances(sortedBalances);
-      setFilteredBalances(sortedBalances); // Initialize filteredBalances
+      setFilteredBalances(sortedBalances);
     } catch (error) {
       console.error("Error fetching balances:", error);
     }
@@ -31,18 +36,18 @@ const ManageBalance = () => {
 
   const fetchAccounts = async () => {
     try {
-      const response = await axiosInstance.get("/accounts/get-all-accounts"); // Adjust endpoint
+      const response = await axiosInstance.get("/accounts/get-all-accounts");
       setAccounts(response.data);
 
-      // Create maps for accountId and accountNumber
+      // Map for accountId and accountNumber
       const accountNumberMap = response.data.reduce((acc, account) => {
-        acc[account.id] = account.accountNumber; // Map accountId to accountNumber
+        acc[account.id] = account.accountNumber;
         return acc;
       }, {});
 
-      // Create a map for username using account data
+      // Map for username using account data
       const usernameMap = response.data.reduce((acc, account) => {
-        acc[account.id] = account.user.username; // Map accountId to username
+        acc[account.id] = account.user.username;
         return acc;
       }, {});
 
@@ -90,6 +95,30 @@ const ManageBalance = () => {
     }
   };
 
+  const openEditModal = (balance) => {
+    setSelectedBalance(balance);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setSelectedBalance(null);
+    setIsEditModalOpen(false);
+  };
+
+  const handleBalanceUpdated = (updatedBalance) => {
+    setBalances((prevBalances) =>
+      prevBalances.map((balance) =>
+        balance.id === updatedBalance.id ? updatedBalance : balance
+      )
+    );
+    setFilteredBalances((prevFilteredBalances) =>
+      prevFilteredBalances.map((balance) =>
+        balance.id === updatedBalance.id ? updatedBalance : balance
+      )
+    );
+    closeEditModal();
+  };
+
   return (
     <div className="p-4">
       <div className="bg-gray-800 text-white p-4 rounded-t-2xl">
@@ -135,6 +164,9 @@ const ManageBalance = () => {
               </th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Date</th>
               <th className="w-2/12 px-4 py-2 font-bold text-left">Amount</th>
+              <th className="w-1/12 px-4 py-2 font-bold text-left">
+                Actions
+              </th>{" "}
             </tr>
           </thead>
           <tbody>
@@ -161,6 +193,13 @@ const ManageBalance = () => {
                     {new Date(balance.date).toLocaleDateString()}
                   </td>
                   <td className="border px-4 py-2">Rs {balance.amount || 0}</td>
+                  <td className="border px-4 py-2 text-center">
+                    <AiOutlineEdit
+                      className="text-blue-500 cursor-pointer"
+                      onClick={() => openEditModal(balance)}
+                      size={24}
+                    />
+                  </td>
                 </tr>
               ))
             )}
@@ -172,6 +211,12 @@ const ManageBalance = () => {
         onRequestClose={() => setFilterModalIsOpen(false)}
         filterDate={filterDate}
         handleDateChange={handleDateChange}
+      />
+      <EditBalanceModal
+        isOpen={isEditModalOpen}
+        onRequestClose={closeEditModal}
+        balance={selectedBalance}
+        onBalanceUpdated={handleBalanceUpdated}
       />
     </div>
   );

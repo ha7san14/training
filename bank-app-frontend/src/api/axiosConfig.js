@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
       localStorage.removeItem('jwtToken');
       localStorage.removeItem('userRole');
       localStorage.removeItem('user');
-      window.location.href = '/'; // Redirect to login page
+      window.location.href = '/';
     }
     return Promise.reject(error);
   }
