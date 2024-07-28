@@ -96,8 +96,8 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Create New User"
-      className="fixed inset-0 flex items-center justify-center p-4"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+      className="fixed inset-0 flex items-center justify-center p-4 z-50"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40"
     >
       <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 font-bold">Create New User</h2>

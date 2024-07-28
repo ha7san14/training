@@ -11,8 +11,8 @@ const FilterModal = ({ isOpen, onRequestClose, filterDate, handleDateChange }) =
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Filter by Date"
-      className="fixed inset-0 flex items-center justify-center p-4"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+      className="fixed inset-0 flex items-center justify-center p-4 z-50"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-40"
     >
       <div className="bg-white  max-w-sm p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 font-bold">Select Date to Filter</h2>

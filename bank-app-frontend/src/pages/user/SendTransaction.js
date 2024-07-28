@@ -71,6 +71,7 @@ const SendTransaction = () => {
         throw new Error("Sender account not found.");
 
       const senderAccountId = senderAccountResponse.data.id;
+      //const senderAccountNumber = senderAccountNumber.data.accountNumber;
 
       const transactionResponse = await axiosInstance.post(
         "/transactions/create-transaction",
