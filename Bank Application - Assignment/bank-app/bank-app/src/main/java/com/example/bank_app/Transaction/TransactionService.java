@@ -74,6 +74,7 @@ public class TransactionService {
             receiverTransaction.setAmount(transaction.getAmount());
             receiverTransaction.setIndicator("CR");
             receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
+//            receiverTransaction.setReceiver_account_number(account.getAccountNumber());
             receiverTransaction.setDescription(transaction.getDescription());
             receiverTransaction.setDate(LocalDateTime.now());
             transactionRepository.save(receiverTransaction);

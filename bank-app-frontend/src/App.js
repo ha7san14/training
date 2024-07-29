@@ -14,7 +14,7 @@ import ManageBalance from "./pages/admin/ManageBalance";
 import SendTransaction from "./pages/user/SendTransaction";
 import ViewAccountInfo from "./pages/user/ViewAccountInfo";
 import ViewTransactionHistory from "./pages/user/ViewTransactionHistory";
-import bgImage from "./assets/bg.png";
+import bgImage from "./assets/bg1.png";
 
 const Unauthorized = () => {
   return (
