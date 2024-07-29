@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -39,6 +40,9 @@ public class TransactionService {
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         Account account = transaction.getAccount();
+        Long senderAccountId = transaction.getAccount().getId();
+        Optional<Account> anotherTransactionaccount = accountRepository.findById(senderAccountId);
+        Account optionalAcc = anotherTransactionaccount.get();
         Balance balance = balanceRepository.findByAccount(account);
 
         if (balance == null) {
@@ -73,8 +77,8 @@ public class TransactionService {
             receiverTransaction.setAccount(receiverAccount);
             receiverTransaction.setAmount(transaction.getAmount());
             receiverTransaction.setIndicator("CR");
-            receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
-//            receiverTransaction.setReceiver_account_number(account.getAccountNumber());
+            //receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
+            receiverTransaction.setReceiver_account_number(optionalAcc.getAccountNumber());
             receiverTransaction.setDescription(transaction.getDescription());
             receiverTransaction.setDate(LocalDateTime.now());
             transactionRepository.save(receiverTransaction);
