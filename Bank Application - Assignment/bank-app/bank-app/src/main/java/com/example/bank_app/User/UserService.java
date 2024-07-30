@@ -93,15 +93,29 @@ public class UserService {
         if (existingUser.isPresent()) {
             User userToUpdate = existingUser.get();
             userToUpdate.setUsername(user.getUsername());
-            //if (userToUpdate.getPassword() != null && !userToUpdate.getPassword().isEmpty()){
-            userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
-            //}
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                if (user.getPassword().length() >= 6) {
+                    userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+                } else {
+                    throw new IllegalArgumentException("Password must be at least 6 characters long.");
+                }
+            }
 
             userToUpdate.setEmail(user.getEmail());
             userToUpdate.setAddress(user.getAddress());
             return userRepository.save(userToUpdate);
         }
         return null;
+    }
+    public void updatePassword(Long id, String newPassword) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (newPassword.length() < 6) {
+            throw new IllegalArgumentException("Password must be at least 6 characters long.");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
 

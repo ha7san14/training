@@ -57,4 +57,17 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PreAuthorize("hasAnyAuthority('ACCOUNTHOLDER')")
+    @PutMapping("/update-password/{id}")
+    public ResponseEntity<String> updatePassword(@PathVariable Long id, @RequestParam String newPassword) {
+        try {
+            userService.updatePassword(id, newPassword);
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating password");
+        }
+    }
+
 }
