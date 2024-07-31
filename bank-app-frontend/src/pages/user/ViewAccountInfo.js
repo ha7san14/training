@@ -56,7 +56,6 @@ const ViewAccountInfo = () => {
 
       setIsModalOpen(false);
       setSuccessMessage("Password updated successfully");
-      // Optionally, clear the message after a few seconds
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
       console.error("Error updating password.", err);
@@ -106,7 +105,7 @@ const ViewAccountInfo = () => {
             <div className="text-gray-900">Rs {balanceInfo.amount}</div>
           </div>
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+            className="bg-gray-800 text-white px-4 py-2 rounded mt-4"
             onClick={() => setIsModalOpen(true)}
           >
             Change Password

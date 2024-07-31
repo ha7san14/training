@@ -1,6 +1,5 @@
 package com.example.bank_app.User;
 
-
 import com.example.bank_app.Account.Account;
 import com.example.bank_app.Account.AccountRepository;
 import com.example.bank_app.Balance.Balance;
@@ -20,7 +19,9 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final int MIN_PASSWORD_LENGTH = 6;
+    private static final int ACCOUNT_NUMBER_LENGTH = 12;
 
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
@@ -28,7 +29,8 @@ public class UserService {
     private final BalanceRepository balanceRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, AccountRepository accountRepository, PasswordEncoder passwordEncoder,BalanceRepository balanceRepository) {
+    public UserService(UserRepository userRepository, AccountRepository accountRepository,
+                       PasswordEncoder passwordEncoder, BalanceRepository balanceRepository) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
@@ -53,7 +55,7 @@ public class UserService {
             user.setRoles("ACCOUNTHOLDER");
 
             User newUser = userRepository.save(user);
-            logger.info("User saved with ID: " + newUser.getId());
+            LOGGER.info("User saved with ID: " + newUser.getId());
 
             Account existingAccount = accountRepository.findByUserId(newUser.getId());
             if (existingAccount == null) {
@@ -61,9 +63,6 @@ public class UserService {
                 account.setAccountNumber(generateUniqueAccountNumber());
                 account.setUser(newUser);
                 accountRepository.save(account);
-                //Account newAccount =
-                // newUser.setAccount(newAccount);
-                // userRepository.save(newUser);
             } else {
                 existingAccount = accountRepository.findById(existingAccount.getId()).orElse(null);
             }
@@ -86,18 +85,16 @@ public class UserService {
         }
     }
 
-
     public User updateUser(User user, Long id) {
-
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             User userToUpdate = existingUser.get();
             userToUpdate.setUsername(user.getUsername());
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-                if (user.getPassword().length() >= 6) {
+                if (user.getPassword().length() >= MIN_PASSWORD_LENGTH) {
                     userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
                 } else {
-                    throw new IllegalArgumentException("Password must be at least 6 characters long.");
+                    throw new IllegalArgumentException("Password must be at least " + MIN_PASSWORD_LENGTH + " characters long.");
                 }
             }
 
@@ -107,19 +104,19 @@ public class UserService {
         }
         return null;
     }
+
     public void updatePassword(Long id, String newPassword) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (newPassword.length() < 6) {
-            throw new IllegalArgumentException("Password must be at least 6 characters long.");
+        if (newPassword.length() < MIN_PASSWORD_LENGTH) {
+            throw new IllegalArgumentException("Password must be at least " + MIN_PASSWORD_LENGTH + " characters long.");
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
-
     private String generateUniqueAccountNumber() {
-        return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 12);
+        return UUID.randomUUID().toString().replaceAll("-", "").substring(0, ACCOUNT_NUMBER_LENGTH);
     }
 }
