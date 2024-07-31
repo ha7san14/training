@@ -70,7 +70,7 @@ databaseChangeLog:
                   value: 'DB'
               - column:
                   name: receiver_account_number
-                  value: '456'
+                  value: '0987654321'
               - column:
                   name: account_id
                   value: '1'
@@ -91,7 +91,7 @@ databaseChangeLog:
                   value: 'CR'
               - column:
                   name: receiver_account_number
-                  value: '123'
+                  value: '1234567890'
               - column:
                   name: account_id
                   value: '2'
@@ -112,7 +112,7 @@ databaseChangeLog:
                   value: 'DB'
               - column:
                   name: receiver_account_number
-                  value: '456'
+                  value: '0987654321'
               - column:
                   name: account_id
                   value: '1'
@@ -133,7 +133,7 @@ databaseChangeLog:
                   value: 'CR'
               - column:
                   name: receiver_account_number
-                  value: '123'
+                  value: '1234567890'
               - column:
                   name: account_id
                   value: '2'
