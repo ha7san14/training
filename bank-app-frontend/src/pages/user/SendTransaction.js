@@ -8,6 +8,8 @@ const SendTransaction = () => {
   const [currentBalance, setCurrentBalance] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [accountNumberError, setAccountNumberError] = useState("");
+  const [amountError, setAmountError] = useState("");
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -41,20 +43,50 @@ const SendTransaction = () => {
     return user ? user.id : null;
   };
 
+  const handleReceiverAccountNumberChange = (e) => {
+    const value = e.target.value;
+    setReceiverAccountNumber(value);
+
+    if (value.length !== 10) {
+      setAccountNumberError("Receiver account number must be exactly 10 digits long.");
+    } else {
+      setAccountNumberError("");
+    }
+  };
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value;
+    // Allow only numbers and dot
+    if (/^[0-9]*\.?[0-9]*$/.test(value)) {
+      setAmount(value);
+
+      if (parseFloat(value) <= 0) {
+        setAmountError("Amount must be greater than zero.");
+      } else {
+        setAmountError("");
+      }
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (receiverAccountNumber.length !== 10) {
+      setAccountNumberError("Receiver account number must be exactly 10 digits long.");
+      return;
+    }
 
     if (!receiverAccountNumber || !description || !amount) {
       setError("Please fill in all fields.");
       return;
     }
 
-    if (amount <= 0) {
-      setError("Amount must be greater than zero.");
+    if (parseFloat(amount) <= 0) {
+      setAmountError("Amount must be greater than zero.");
       return;
     }
 
-    if (amount > currentBalance) {
+    if (parseFloat(amount) > currentBalance) {
       setError("Insufficient balance.");
       return;
     }
@@ -71,7 +103,6 @@ const SendTransaction = () => {
         throw new Error("Sender account not found.");
 
       const senderAccountId = senderAccountResponse.data.id;
-      //const senderAccountNumber = senderAccountNumber.data.accountNumber;
 
       const transactionResponse = await axiosInstance.post(
         "/transactions/create-transaction",
@@ -82,7 +113,7 @@ const SendTransaction = () => {
           },
           receiver_account_number: receiverAccountNumber,
           description,
-          amount,
+          amount: parseFloat(amount),
           indicator: "DB",
           date: transactionDate,
         }
@@ -134,10 +165,13 @@ const SendTransaction = () => {
             id="receiver"
             type="text"
             value={receiverAccountNumber}
-            onChange={(e) => setReceiverAccountNumber(e.target.value)}
+            onChange={handleReceiverAccountNumberChange}
             placeholder="Enter receiver's account number"
             className="mt-1 block w-full p-2 border border-gray-300 rounded"
           />
+          {accountNumberError && (
+            <div className="text-red-500 mt-2">{accountNumberError}</div>
+          )}
         </div>
         <div>
           <label
@@ -164,13 +198,15 @@ const SendTransaction = () => {
           </label>
           <input
             id="amount"
-            type="number"
-            min="0"
+            type="text"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={handleAmountChange}
             placeholder="0.00"
             className="block w-full border border-gray-300 rounded sm:text-sm px-3 py-2"
           />
+          {amountError && (
+            <div className="text-red-500 mt-2">{amountError}</div>
+          )}
         </div>
 
         <button

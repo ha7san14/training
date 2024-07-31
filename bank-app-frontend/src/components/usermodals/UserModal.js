@@ -25,6 +25,16 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
     }
   }, [isOpen]);
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -32,11 +42,33 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
       ...prevState,
       [name]: value,
     }));
-  };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    // Validate input as the user types
+    const validationErrors = { ...errors };
+
+    if (name === "email") {
+      if (!value) {
+        validationErrors.email = "Email is required";
+      } else if (!isValidEmail(value)) {
+        validationErrors.email = "Invalid email address";
+      } else {
+        delete validationErrors.email;
+      }
+    }
+
+    if (name === "password") {
+      if (!value) {
+        validationErrors.password = "Password is required";
+      } else if (value.length < 8) {
+        validationErrors.password = "Password must be at least 8 characters long";
+      } else if (!isValidPassword(value)) {
+        validationErrors.password = "Password must contain at least one number and one special character";
+      } else {
+        delete validationErrors.password;
+      }
+    }
+
+    setErrors(validationErrors);
   };
 
   const handleCreateUser = async () => {
@@ -45,8 +77,10 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
 
     if (!username) validationErrors.username = "Username is required";
     if (!password) validationErrors.password = "Password is required";
-    if (password.length > 0 && password.length < 6)
-      validationErrors.password = "Password must be at least 6 characters long";
+    if (password.length > 0 && password.length < 8)
+      validationErrors.password = "Password must be at least 8 characters long";
+    if (password.length > 0 && !isValidPassword(password))
+      validationErrors.password = "Password must contain at least one number and one special character";
     if (!email) {
       validationErrors.email = "Email is required";
     } else if (!isValidEmail(email)) {

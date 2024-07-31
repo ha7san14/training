@@ -2,18 +2,38 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
-const ChangePasswordModal = ({ isOpen, onClose, onSave }) => {
+const ChangePasswordModal = ({ isOpen, onClose, onSave, currentPassword }) => {
   const [newPassword, setNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const passwordRegex = /^(?=.*\d)(?=.*[\W_]).{8,}$/;
+
   const handleSave = () => {
-    if (newPassword.length < 6) {
-      setPasswordError("Password must be at least 6 characters long.");
+    if (newPassword === currentPassword) {
+      setPasswordError("New password cannot be the same as the current password.");
+    } else if (newPassword.length < 8) {
+      setPasswordError("Password must be at least 8 characters long.");
+    } else if (!passwordRegex.test(newPassword)) {
+      setPasswordError("Password must contain at least one number and one special character.");
     } else {
       onSave(newPassword);
       setNewPassword("");
       setPasswordError("");
     }
+  };
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setNewPassword(value);
+    setPasswordError(
+      value === currentPassword
+        ? "New password cannot be the same as the current password."
+        : value.length < 8
+        ? "Password must be at least 8 characters long."
+        : !passwordRegex.test(value)
+        ? "Password must contain at least one number and one special character."
+        : ""
+    );
   };
 
   if (!isOpen) return null;
@@ -33,7 +53,7 @@ const ChangePasswordModal = ({ isOpen, onClose, onSave }) => {
           className="border p-2 w-full mb-4"
           placeholder="New Password"
           value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          onChange={handleChange}
         />
         {passwordError && <div className="text-red-500 mb-4">{passwordError}</div>}
         <div className="flex justify-end">

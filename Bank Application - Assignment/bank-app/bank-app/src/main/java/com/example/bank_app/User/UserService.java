@@ -20,8 +20,8 @@ import java.util.UUID;
 @Service
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-    private static final int MIN_PASSWORD_LENGTH = 6;
-    private static final int ACCOUNT_NUMBER_LENGTH = 12;
+    private static final int MIN_PASSWORD_LENGTH = 8;
+    private static final int ACCOUNT_NUMBER_LENGTH = 10;
 
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
