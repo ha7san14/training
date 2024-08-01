@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,14 +66,14 @@ public class BalanceController {
         }
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteBalance(@PathVariable Long id) {
-//        Balance existingBalance = balanceService.getBalanceById(id);
-//        if (existingBalance != null) {
-//            balanceService.deleteBalance(id);
-//            return ResponseEntity.noContent().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBalance(@PathVariable Long id) {
+        Balance existingBalance = balanceService.getBalanceById(id);
+        if (existingBalance != null) {
+            balanceService.deleteBalance(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

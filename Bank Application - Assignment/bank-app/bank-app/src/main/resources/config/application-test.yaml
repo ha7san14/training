@@ -1,13 +1,22 @@
 spring:
-  datasource:
-    url: jdbc:h2:file:./bank-app/data/test-bank
-    username: test
-    password: test
   h2:
     console:
       enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: test
+    password: test
+
   jpa:
     hibernate:
       ddl-auto: create-drop
-    open-in-view: false
     show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+jwt:
+  secret: UGEzLf3ug6HdJy7nEaVZjIxraYsbNIbt4AIBpgTAgTQ=
+  expiration: 3600000

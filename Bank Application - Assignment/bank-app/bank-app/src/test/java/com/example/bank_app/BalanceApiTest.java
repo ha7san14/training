@@ -121,7 +121,6 @@ public class BalanceApiTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
-
     @Order(6)
     @Test
     public void testUpdateBalanceSuccess() throws Exception {
@@ -151,4 +150,15 @@ public class BalanceApiTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+    @Order(8)
+    @Test
+    public void testDeleteBalanceSuccess() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/balances/" + testBalanceId)
+                        .with(SecurityMockMvcRequestPostProcessors.user("admin")
+                                .authorities(new SimpleGrantedAuthority("ADMIN"))))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
 }
