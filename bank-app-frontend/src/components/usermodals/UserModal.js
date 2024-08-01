@@ -43,7 +43,6 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
       [name]: value,
     }));
 
-    // Validate input as the user types
     const validationErrors = { ...errors };
 
     if (name === "email") {
@@ -68,7 +67,45 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
       }
     }
 
+    if (name === "username") {
+      if (!value) {
+        validationErrors.username = "Username is required";
+      } else {
+        delete validationErrors.username;
+      }
+    }
+
     setErrors(validationErrors);
+  };
+
+  const checkUserExistence = async (name, value) => {
+    try {
+      const response = await axiosInstance.get("/users/get-all-users");
+      const users = response.data;
+
+      if (name === "email") {
+        const emailExists = users.some((user) => user.email === value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: emailExists ? "Email is already in use" : "",
+        }));
+      } else if (name === "username") {
+        const usernameExists = users.some((user) => user.username === value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          username: usernameExists ? "Username is already taken" : "",
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (name === "email" || name === "username") {
+      checkUserExistence(name, value);
+    }
   };
 
   const handleCreateUser = async () => {
@@ -145,6 +182,7 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
               name="username"
               value={newUser.username}
               onChange={handleChange}
+              onBlur={handleBlur}
               className="border border-gray-300 rounded-lg w-full p-2 text-sm"
             />
             {errors.username && (
@@ -175,6 +213,7 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
               name="email"
               value={newUser.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               className="border border-gray-300 rounded-lg w-full p-2 text-sm"
             />
             {errors.email && (

@@ -17,10 +17,80 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setUpdatedUser((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+
+    const validationErrors = { ...errors };
+
+    if (name === "email") {
+      if (!value) {
+        validationErrors.email = "Email is required";
+      } else if (!isValidEmail(value)) {
+        validationErrors.email = "Invalid email address";
+      } else {
+        delete validationErrors.email; // Clear the email error if valid
+      }
+    }
+
+    if (name === "username") {
+      if (!value) {
+        validationErrors.username = "Username is required";
+      } else {
+        delete validationErrors.username; // Clear the username error if valid
+      }
+    }
+
+    if (name === "address") {
+      if (!value) {
+        validationErrors.address = "Address is required";
+      } else {
+        delete validationErrors.address; // Clear the address error if valid
+      }
+    }
+
+    setErrors(validationErrors);
+  };
+
+  const checkUserExistence = async (name, value) => {
+    if (value === user[name]) {
+      // If the value is the same as the original, don't show an error
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "", // Clear the specific error
+      }));
+      return;
+    }
+
+    try {
+      const response = await axiosInstance.get("/users/get-all-users");
+      const users = response.data;
+
+      if (name === "email") {
+        const emailExists = users.some((existingUser) => existingUser.email === value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: emailExists ? "Email is already in use" : "", // Clear email error if unique
+        }));
+      } else if (name === "username") {
+        const usernameExists = users.some((existingUser) => existingUser.username === value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          username: usernameExists ? "Username is already taken" : "", // Clear username error if unique
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    if (name === "email" || name === "username") {
+      checkUserExistence(name, value);
+    }
   };
 
   const handleUpdateUser = async () => {
@@ -47,6 +117,12 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
     }
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -67,6 +143,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
               name="username"
               value={updatedUser.username}
               onChange={handleChange}
+              onBlur={handleBlur}
               className="border border-gray-300 rounded-lg w-full p-2 text-sm"
             />
             {errors.username && (
@@ -82,6 +159,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
               name="email"
               value={updatedUser.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               className="border border-gray-300 rounded-lg w-full p-2 text-sm"
             />
             {errors.email && (
@@ -124,5 +202,6 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
     </Modal>
   );
 };
+
 
 export default EditUserModal;
