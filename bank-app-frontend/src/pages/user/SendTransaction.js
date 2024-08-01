@@ -111,7 +111,7 @@ const SendTransaction = () => {
             id: senderAccountId,
             accountNumber: receiverAccountNumber,
           },
-          receiver_account_number: receiverAccountNumber,
+          receiverAccountNumber: receiverAccountNumber,
           description,
           amount: parseFloat(amount),
           indicator: "DB",

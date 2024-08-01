@@ -26,4 +26,17 @@ public class User {
 
     private String address;
 
+    public User() {
+
+    }
+
+    public User(User other) {
+        this.id = other.id;
+        this.username = other.username;
+        this.password = other.password;
+        this.email = other.email;
+        this.address = other.address;
+        this.roles = other.roles;
+    }
+
 }

@@ -35,4 +35,12 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    public Account getAccount() {
+        return account != null ? new Account(account) : null;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account != null ? new Account(account) : null;
+    }
 }

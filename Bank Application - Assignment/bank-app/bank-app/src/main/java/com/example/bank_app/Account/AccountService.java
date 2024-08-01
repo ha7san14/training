@@ -1,6 +1,8 @@
 package com.example.bank_app.Account;
 import com.example.bank_app.Balance.Balance;
 import com.example.bank_app.Balance.BalanceRepository;
+import com.example.bank_app.Transaction.Transaction;
+import com.example.bank_app.Transaction.TransactionRepository;
 import com.example.bank_app.User.User;
 import com.example.bank_app.User.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,12 +17,15 @@ public class AccountService {
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
     private final BalanceRepository balanceRepository;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository, BalanceRepository balanceRepository) {
+    public AccountService(AccountRepository accountRepository, UserRepository userRepository, BalanceRepository balanceRepository
+    , TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.balanceRepository = balanceRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     public List<Account> getAllAccounts() {
@@ -42,6 +47,10 @@ public class AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
+            List<Transaction> transaction = transactionRepository.findByAccountId(account.getId());
+            if (transaction != null) {
+                transactionRepository.deleteAll(transaction);
+            }
             Balance balance = balanceRepository.findByAccountId(account.getId());
             if (balance != null) {
                 balanceRepository.delete(balance);

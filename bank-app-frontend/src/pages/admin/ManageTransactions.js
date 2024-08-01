@@ -184,7 +184,7 @@ const ManageTransactions = () => {
                       {account ? account.accountNumber : "Unknown"}
                     </td>
                     <td className="border px-4 py-2">
-                      {transaction.receiver_account_number}
+                      {transaction.receiverAccountNumber}
                     </td>
                     <td className="border px-4 py-2">
                       {transaction.indicator}

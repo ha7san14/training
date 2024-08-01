@@ -23,4 +23,21 @@ public class Account {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public User getUser() {
+        return user != null ? new User(user) : null;
+    }
+
+    public void setUser(User user) {
+        this.user = user != null ? new User(user) : null;
+    }
+    public Account() {
+
+    }
+    public Account(Account other) {
+        this.id = other.id;
+        this.accountNumber = other.accountNumber;
+        this.user = other.user != null ? new User(other.user) : null;
+    }
 }
+
