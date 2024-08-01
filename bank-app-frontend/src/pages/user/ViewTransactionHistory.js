@@ -139,7 +139,7 @@ const ViewTransactionHistory = () => {
                   <td className="border px-4 py-2 text-center">{index + 1}</td>
                   {/* <td className="border px-4 py-2">{transaction.senderAccountNumber}</td> */}
                   <td className="border px-4 py-2">
-                    {transaction.receiver_account_number}
+                    {transaction.receiverAccountNumber}
                   </td>
                   <td className="border px-4 py-2 text-center">
                     {transaction.indicator}

@@ -56,7 +56,6 @@ const SendTransaction = () => {
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
-    // Allow only numbers and dot
     if (/^[0-9]*\.?[0-9]*$/.test(value)) {
       setAmount(value);
 
@@ -103,13 +102,14 @@ const SendTransaction = () => {
         throw new Error("Sender account not found.");
 
       const senderAccountId = senderAccountResponse.data.id;
+      const senderAccountNumber = senderAccountResponse.data.accountNumber;
 
       const transactionResponse = await axiosInstance.post(
         "/transactions/create-transaction",
         {
           account: {
             id: senderAccountId,
-            accountNumber: receiverAccountNumber,
+            accountNumber: senderAccountNumber,
           },
           receiverAccountNumber: receiverAccountNumber,
           description,
