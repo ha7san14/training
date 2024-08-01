@@ -28,7 +28,7 @@ public class Transaction {
 
     private BigDecimal amount;
 
-    private String receiver_account_number;
+    private String receiverAccountNumber;
 
     private String indicator;
 

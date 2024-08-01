@@ -67,7 +67,7 @@ public class TransactionApiTest {
         testTransaction.setDate(LocalDateTime.now());
         testTransaction.setAmount(BigDecimal.valueOf(1000.00));
         testTransaction.setDescription("Test Transaction");
-        testTransaction.setReceiver_account_number("123456789");
+        testTransaction.setReceiverAccountNumber("123456789");
         testTransaction.setIndicator("DB");
         testTransaction.setAccount(testAccount);
     }
@@ -190,7 +190,7 @@ public class TransactionApiTest {
         updatedTransaction.setDate(LocalDateTime.now());
         updatedTransaction.setAmount(BigDecimal.valueOf(500.00));
         updatedTransaction.setDescription("Updated Transaction");
-        updatedTransaction.setReceiver_account_number("987654321");
+        updatedTransaction.setReceiverAccountNumber("987654321");
         updatedTransaction.setIndicator("CR");
         updatedTransaction.setAccount(testAccount);
 

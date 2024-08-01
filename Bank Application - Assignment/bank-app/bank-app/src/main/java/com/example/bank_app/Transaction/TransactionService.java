@@ -61,8 +61,8 @@ public class TransactionService {
         }
 
         // Handle transfer to another account
-        if (transaction.getReceiver_account_number() != null) {
-            Account receiverAccount = accountRepository.findByAccountNumber(transaction.getReceiver_account_number());
+        if (transaction.getReceiverAccountNumber() != null) {
+            Account receiverAccount = accountRepository.findByAccountNumber(transaction.getReceiverAccountNumber());
             if (receiverAccount == null) {
                 throw new AccountNotFoundException("Receiver account not found");
             }
@@ -78,7 +78,7 @@ public class TransactionService {
             receiverTransaction.setAmount(transaction.getAmount());
             receiverTransaction.setIndicator("CR");
             //receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
-            receiverTransaction.setReceiver_account_number(optionalAcc.getAccountNumber());
+            receiverTransaction.setReceiverAccountNumber(optionalAcc.getAccountNumber());
             receiverTransaction.setDescription(transaction.getDescription());
             receiverTransaction.setDate(LocalDateTime.now());
             transactionRepository.save(receiverTransaction);
