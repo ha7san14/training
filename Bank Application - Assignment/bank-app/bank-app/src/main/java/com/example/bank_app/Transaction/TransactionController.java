@@ -25,8 +25,7 @@ public class TransactionController {
 
     @Autowired
     public TransactionController(TransactionService transactionService) {
-        // Defensive copy to ensure immutability if AccountService is mutable
-        this.transactionService = new TransactionService(transactionService);
+        this.transactionService = transactionService;
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping

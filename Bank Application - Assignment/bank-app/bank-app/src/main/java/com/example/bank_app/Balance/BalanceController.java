@@ -20,8 +20,7 @@ public class BalanceController {
 
     @Autowired
     public BalanceController(BalanceService balanceService) {
-    // Defensive copy to ensure immutability if BalanceService is mutable
-    this.balanceService = new BalanceService(balanceService);
+    this.balanceService = balanceService;
 }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping

@@ -18,8 +18,7 @@ public class AccountController {
 
     @Autowired
     public AccountController(AccountService accountService) {
-        // Defensive copy to ensure immutability if AccountService is mutable
-        this.accountService = new AccountService(accountService);
+        this.accountService = accountService;
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/get-all-accounts")

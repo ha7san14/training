@@ -28,13 +28,6 @@ public class AccountService {
         this.transactionRepository = transactionRepository;
     }
 
-    public AccountService(AccountService other) {
-        this.accountRepository = other.accountRepository;
-        this.userRepository = other.userRepository;
-        this.balanceRepository = other.balanceRepository;
-        this.transactionRepository = other.transactionRepository;
-    }
-
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
