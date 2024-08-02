@@ -21,7 +21,7 @@ public class BalanceController {
     @Autowired
     public BalanceController(BalanceService balanceService) {
     this.balanceService = balanceService;
-}
+    }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Balance>> getAllBalances() {
