@@ -43,4 +43,18 @@ public class Transaction {
     public void setAccount(Account account) {
         this.account = account != null ? new Account(account) : null;
     }
+
+    public Transaction() {
+
+    }
+
+    public Transaction(Transaction other) {
+        this.id = other.id;
+        this.date = other.date;
+        this.description = other.description;
+        this.amount = other.amount;
+        this.receiverAccountNumber = other.receiverAccountNumber;
+        this.indicator = other.indicator;
+        this.account = other.account != null ? new Account(other.account) : null;
+    }
 }

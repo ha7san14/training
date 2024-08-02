@@ -20,12 +20,19 @@ public class AccountService {
     private final TransactionRepository transactionRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository, BalanceRepository balanceRepository
-    , TransactionRepository transactionRepository) {
+    public AccountService(AccountRepository accountRepository, UserRepository userRepository, BalanceRepository balanceRepository,
+    TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.balanceRepository = balanceRepository;
         this.transactionRepository = transactionRepository;
+    }
+
+    public AccountService(AccountService other) {
+        this.accountRepository = other.accountRepository;
+        this.userRepository = other.userRepository;
+        this.balanceRepository = other.balanceRepository;
+        this.transactionRepository = other.transactionRepository;
     }
 
     public List<Account> getAllAccounts() {

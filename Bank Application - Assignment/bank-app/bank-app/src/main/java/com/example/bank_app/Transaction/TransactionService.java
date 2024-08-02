@@ -27,6 +27,12 @@ public class TransactionService {
         this.balanceRepository = balanceRepository;
     }
 
+    public TransactionService(TransactionService other) {
+        this.accountRepository = other.accountRepository;
+        this.balanceRepository = other.balanceRepository;
+        this.transactionRepository = other.transactionRepository;
+    }
+
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
     }
