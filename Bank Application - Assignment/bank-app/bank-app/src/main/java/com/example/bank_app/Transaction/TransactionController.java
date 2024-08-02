@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -25,7 +26,7 @@ public class TransactionController {
 
     @Autowired
     public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+        this.transactionService = Objects.requireNonNull(transactionService, "TransactionService must not be null");
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping

@@ -56,7 +56,7 @@ databaseChangeLog:
                   value: 'admin'
               - column:
                   name:  password
-                  value: $2a$12$kTVfQjNAFfLmvnUYexUTee6rEJ4k8xC60nQmB8n1fgzqGfrNIdSAO
+                  value: $2a$12$8Adk4PKlMzMN01Y1.xGewu7gOtV6PZvISO4MFq83YgVmP1dpgeoYq
               - column:
                   name:  email
                   value: 'admin@gmail.com'
@@ -74,7 +74,7 @@ databaseChangeLog:
                   value: 'hassan'
               - column:
                   name: password
-                  value: $2a$12$aq2rQdOhIHWlo.ZxYiOoO.bo1ZP0e0v1Eq9fhbVi1zCVYFDXHmEC6
+                  value: $2a$12$aOmUkXPrg3ZgsAyHVwa0feTvYkGojV.1F9n924LjQxEwnykifsUNy
               - column:
                   name: email
                   value: 'hassan@gmail.com'
@@ -92,7 +92,7 @@ databaseChangeLog:
                   value: 'ali'
               - column:
                   name: password
-                  value: $2a$12$U1LiGFr..H6K5FPl4Hx3S.xeE7ZDxUKU7rYSBkp6mIGjaJinoL5J6
+                  value: $2a$12$rKTPgOkCedSDZKTJCxIdqezxs/GM.GUQW7W0MWMGqR91U2Gyn4162
               - column:
                   name: email
                   value: 'ali@gmail.com'

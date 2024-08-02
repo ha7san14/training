@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/balances")
@@ -20,7 +21,7 @@ public class BalanceController {
 
     @Autowired
     public BalanceController(BalanceService balanceService) {
-    this.balanceService = balanceService;
+        this.balanceService = Objects.requireNonNull(balanceService, "BalanceService must not be null");
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping

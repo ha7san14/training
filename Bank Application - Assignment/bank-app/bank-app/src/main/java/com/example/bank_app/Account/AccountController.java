@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -18,7 +19,7 @@ public class AccountController {
 
     @Autowired
     public AccountController(AccountService accountService) {
-        this.accountService = accountService;
+        this.accountService = Objects.requireNonNull(accountService, "AccountService must not be null");
     }
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/get-all-accounts")
