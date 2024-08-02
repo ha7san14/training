@@ -33,7 +33,6 @@ function App() {
   const ProtectedRoute = ({ children, roleRequired }) => {
     const token = localStorage.getItem("jwtToken");
     const role = localStorage.getItem("userRole");
-    console.log(token, role);
     if (!token) {
       return <Navigate to="/" />;
     }

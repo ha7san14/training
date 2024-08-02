@@ -68,14 +68,20 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('ACCOUNTHOLDER')")
     @PutMapping("/update-password/{id}")
-    public ResponseEntity<String> updatePassword(@PathVariable Long id, @RequestParam String newPassword) {
+    public ResponseEntity<String> updatePassword(@PathVariable Long id,
+                                                 @RequestParam String oldPassword,
+                                                 @RequestParam String newPassword) {
         try {
-            userService.updatePassword(id, newPassword);
+            if (oldPassword == null || oldPassword.isEmpty() || newPassword == null || newPassword.isEmpty()) {
+                return ResponseEntity.badRequest().body("Old password and new password must be provided");
+            }
+            userService.updatePassword(id, oldPassword, newPassword);
             return ResponseEntity.ok("Password updated successfully");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating password");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating password" + e.getMessage());
         }
     }
+
 }

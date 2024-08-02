@@ -6,7 +6,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 const ViewAccountInfo = () => {
   const [accountInfo, setAccountInfo] = useState(null);
   const [balanceInfo, setBalanceInfo] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -41,7 +41,7 @@ const ViewAccountInfo = () => {
     fetchAccountInfo();
   }, []);
 
-  const handlePasswordChange = async (newPassword) => {
+  const handlePasswordChange = async (oldPassword, newPassword, setPasswordError) => {
     try {
       const userId = getUserId();
       if (!userId) {
@@ -50,6 +50,7 @@ const ViewAccountInfo = () => {
 
       await axiosInstance.put(`/users/update-password/${userId}`, null, {
         params: {
+          oldPassword: oldPassword,
           newPassword: newPassword
         }
       });
@@ -58,8 +59,8 @@ const ViewAccountInfo = () => {
       setSuccessMessage("Password updated successfully");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
-      console.error("Error updating password.", err);
-      setError("Error updating password.");
+      const errorMessage = err.response?.data || "Error updating password.";
+      setPasswordError(errorMessage); 
     }
   };
 

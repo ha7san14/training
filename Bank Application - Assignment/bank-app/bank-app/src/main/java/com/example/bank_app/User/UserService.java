@@ -105,16 +105,25 @@ public class UserService {
         return null;
     }
 
-    public void updatePassword(Long id, String newPassword) {
+    public void updatePassword(Long id, String oldPassword, String newPassword) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
 
         if (newPassword.length() < MIN_PASSWORD_LENGTH) {
             throw new IllegalArgumentException("Password must be at least " + MIN_PASSWORD_LENGTH + " characters long.");
         }
 
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            throw new IllegalArgumentException("New password cannot be the same as the old password");
+        }
+
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
+
 
     private String generateUniqueAccountNumber() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, ACCOUNT_NUMBER_LENGTH);
