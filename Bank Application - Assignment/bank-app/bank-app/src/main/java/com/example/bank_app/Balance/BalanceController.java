@@ -18,12 +18,11 @@ public class BalanceController {
 
     private final BalanceService balanceService;
 
-
-
     @Autowired
     public BalanceController(BalanceService balanceService) {
-        this.balanceService = balanceService;
-    }
+    // Defensive copy to ensure immutability if BalanceService is mutable
+    this.balanceService = new BalanceService(balanceService);
+}
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Balance>> getAllBalances() {

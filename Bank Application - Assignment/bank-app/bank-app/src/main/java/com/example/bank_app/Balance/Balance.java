@@ -1,7 +1,6 @@
 package com.example.bank_app.Balance;
 
 import com.example.bank_app.Account.Account;
-import com.example.bank_app.User.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.engine.jdbc.batch.spi.BatchKey;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

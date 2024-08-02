@@ -14,6 +14,10 @@ public class BalanceService {
         this.balanceRepository = balanceRepository;
     }
 
+    public BalanceService(BalanceService other) {
+        this.balanceRepository = other.balanceRepository;
+    }
+
     public List<Balance> getAllBalances() {
         return balanceRepository.findAll();
     }
