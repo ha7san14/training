@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../api/axiosConfig";
-import {
-  AiOutlineEdit,
-  AiOutlineDelete,
-  AiOutlineSearch,
-} from "react-icons/ai";
-import FilterModal from "../../components/filtermodal/FilterModal";
+import { AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
 import EditBalanceModal from "../../components/balancemodals/EditBalanceModal";
-import "react-datepicker/dist/react-datepicker.css";
 
 const ManageBalance = () => {
   const [balances, setBalances] = useState([]);
@@ -15,8 +9,6 @@ const ManageBalance = () => {
   const [accounts, setAccounts] = useState([]);
   const [accountNumberMap, setAccountNumberMap] = useState({});
   const [usernameMap, setUsernameMap] = useState({});
-  const [filterModalIsOpen, setFilterModalIsOpen] = useState(false);
-  const [filterDate, setFilterDate] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedBalance, setSelectedBalance] = useState(null);
@@ -24,11 +16,8 @@ const ManageBalance = () => {
   const fetchBalances = async () => {
     try {
       const response = await axiosInstance.get("/balances");
-      const sortedBalances = response.data.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-      setBalances(sortedBalances);
-      setFilteredBalances(sortedBalances);
+      setBalances(response.data);
+      setFilteredBalances(response.data);
     } catch (error) {
       console.error("Error fetching balances:", error);
     }
@@ -62,24 +51,6 @@ const ManageBalance = () => {
     fetchBalances();
     fetchAccounts();
   }, []);
-
-  const handleDateChange = (date) => {
-    setFilterDate(date);
-    if (date) {
-      const filtered = balances.filter((balance) => {
-        const balanceDate = new Date(balance.date).setHours(0, 0, 0, 0);
-        const selectedDate = date.setHours(0, 0, 0, 0);
-        return balanceDate === selectedDate;
-      });
-      setFilteredBalances(filtered);
-      setFilterModalIsOpen(false);
-    }
-  };
-
-  const clearFilter = () => {
-    setFilterDate(null);
-    setFilteredBalances(balances);
-  };
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -137,20 +108,6 @@ const ManageBalance = () => {
               <AiOutlineSearch className="text-gray-500" />
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setFilterModalIsOpen(true)}
-              className="bg-green-500 text-white py-2 px-4 rounded"
-            >
-              Filter by Date
-            </button>
-            <button
-              onClick={clearFilter}
-              className="bg-red-500 text-white py-2 px-4 rounded"
-            >
-              Clear Filter
-            </button>
-          </div>
         </div>
       </div>
       <div className="bg-white rounded-b-2xl shadow-md overflow-hidden">
@@ -158,21 +115,18 @@ const ManageBalance = () => {
           <thead className="bg-gray-200">
             <tr>
               <th className="w-1/12 px-4 py-2 font-bold text-left">Sr.</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Username</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">
+              <th className="w-3/12 px-4 py-2 font-bold text-left">Username</th>
+              <th className="w-3/12 px-4 py-2 font-bold text-left">
                 Account Number
               </th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Date</th>
-              <th className="w-2/12 px-4 py-2 font-bold text-left">Amount</th>
-              <th className="w-1/12 px-4 py-2 font-bold text-left">
-                Actions
-              </th>{" "}
+              <th className="w-3/12 px-4 py-2 font-bold text-left">Amount</th>
+              <th className="w-2/12 px-4 py-2 font-bold text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredBalances.length === 0 ? (
               <tr>
-                <td colSpan="6" className="text-center py-4">
+                <td colSpan="5" className="text-center py-4">
                   No balances right now
                 </td>
               </tr>
@@ -189,9 +143,6 @@ const ManageBalance = () => {
                   <td className="border px-4 py-2">
                     {accountNumberMap[balance.account.id] || "Unknown"}
                   </td>
-                  <td className="border px-4 py-2">
-                    {new Date(balance.date).toLocaleDateString()}
-                  </td>
                   <td className="border px-4 py-2">Rs {balance.amount || 0}</td>
                   <td className="border px-4 py-2 text-center">
                     <AiOutlineEdit
@@ -206,12 +157,6 @@ const ManageBalance = () => {
           </tbody>
         </table>
       </div>
-      <FilterModal
-        isOpen={filterModalIsOpen}
-        onRequestClose={() => setFilterModalIsOpen(false)}
-        filterDate={filterDate}
-        handleDateChange={handleDateChange}
-      />
       <EditBalanceModal
         isOpen={isEditModalOpen}
         onRequestClose={closeEditModal}

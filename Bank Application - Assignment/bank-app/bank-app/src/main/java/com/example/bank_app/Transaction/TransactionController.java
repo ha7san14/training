@@ -2,18 +2,13 @@ package com.example.bank_app.Transaction;
 
 import com.example.bank_app.exceptionhandling.AccountNotFoundException;
 import com.example.bank_app.exceptionhandling.InsufficientBalanceException;
+import com.example.bank_app.exceptionhandling.InvalidTransactionAmountException;
 import com.example.bank_app.exceptionhandling.InvalidTransactionIndicatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,12 +23,14 @@ public class TransactionController {
     public TransactionController(TransactionService transactionService) {
         this.transactionService = Objects.requireNonNull(transactionService, "TransactionService must not be null");
     }
+
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransactions();
         return ResponseEntity.ok(transactions);
     }
+
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) {
@@ -44,6 +41,7 @@ public class TransactionController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/account/{accountId}")
     public ResponseEntity<List<Transaction>> getAllTransactionsByAccountId(@PathVariable Long accountId) {
         List<Transaction> transactions = transactionService.getAllTransactionsByAccountId(accountId);
@@ -60,6 +58,8 @@ public class TransactionController {
         } catch (AccountNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (InvalidTransactionIndicatorException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (InvalidTransactionAmountException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
@@ -81,10 +81,4 @@ public class TransactionController {
             return ResponseEntity.notFound().build();
         }
     }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
-//        transactionService.deleteTransaction(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

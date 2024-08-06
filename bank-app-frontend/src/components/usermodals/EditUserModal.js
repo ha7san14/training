@@ -31,7 +31,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
       } else if (!isValidEmail(value)) {
         validationErrors.email = "Invalid email address";
       } else {
-        delete validationErrors.email; // Clear the email error if valid
+        delete validationErrors.email; 
       }
     }
 
@@ -39,7 +39,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
       if (!value) {
         validationErrors.username = "Username is required";
       } else {
-        delete validationErrors.username; // Clear the username error if valid
+        delete validationErrors.username; 
       }
     }
 
@@ -47,7 +47,7 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
       if (!value) {
         validationErrors.address = "Address is required";
       } else {
-        delete validationErrors.address; // Clear the address error if valid
+        delete validationErrors.address; 
       }
     }
 
@@ -56,10 +56,9 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
 
   const checkUserExistence = async (name, value) => {
     if (value === user[name]) {
-      // If the value is the same as the original, don't show an error
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: "", // Clear the specific error
+        [name]: "", 
       }));
       return;
     }
@@ -72,13 +71,13 @@ const EditUserModal = ({ isOpen, onRequestClose, user, onUserUpdated }) => {
         const emailExists = users.some((existingUser) => existingUser.email === value);
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: emailExists ? "Email is already in use" : "", // Clear email error if unique
+          email: emailExists ? "Email is already in use" : "", 
         }));
       } else if (name === "username") {
         const usernameExists = users.some((existingUser) => existingUser.username === value);
         setErrors((prevErrors) => ({
           ...prevErrors,
-          username: usernameExists ? "Username is already taken" : "", // Clear username error if unique
+          username: usernameExists ? "Username is already taken" : "", 
         }));
       }
     } catch (error) {

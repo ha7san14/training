@@ -23,7 +23,7 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime date;
+//    private LocalDateTime date;
 
     private BigDecimal amount;
 
@@ -44,7 +44,7 @@ public class Balance {
 
     public Balance(Balance other) {
         this.id = other.id;
-        this.date = other.date;
+       // this.date = other.date;
         this.amount = other.amount;
         this.account = other.account;
     }

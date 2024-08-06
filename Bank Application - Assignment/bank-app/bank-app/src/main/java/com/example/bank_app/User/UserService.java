@@ -73,7 +73,7 @@ public class UserService {
                     Balance balance = new Balance();
                     balance.setAccount(existingAccount);
                     balance.setAmount(BigDecimal.ZERO);
-                    balance.setDate(LocalDateTime.now());
+                    //balance.setDate(LocalDateTime.now());
                     balanceRepository.save(balance);
                 }
             }

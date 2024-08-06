@@ -6,9 +6,12 @@ import com.example.bank_app.Balance.Balance;
 import com.example.bank_app.Balance.BalanceRepository;
 import com.example.bank_app.exceptionhandling.AccountNotFoundException;
 import com.example.bank_app.exceptionhandling.InsufficientBalanceException;
+import com.example.bank_app.exceptionhandling.InvalidTransactionAmountException;
 import com.example.bank_app.exceptionhandling.InvalidTransactionIndicatorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +24,8 @@ public class TransactionService {
     private final BalanceRepository balanceRepository;
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository, BalanceRepository balanceRepository) {
+    public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository,
+    BalanceRepository balanceRepository) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.balanceRepository = balanceRepository;
@@ -34,15 +38,20 @@ public class TransactionService {
     public Transaction getTransactionById(Long id) {
         return transactionRepository.findById(id).orElse(null);
     }
+
     public List<Transaction> getAllTransactionsByAccountId(Long accountId) {
         return transactionRepository.findByAccountId(accountId);
     }
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
+        if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransactionAmountException("Transaction amount must be greater than zero.");
+        }
+
         Account account = transaction.getAccount();
         Long senderAccountId = transaction.getAccount().getId();
-        Optional<Account> anotherTransactionaccount = accountRepository.findById(senderAccountId);
-        Account optionalAcc = anotherTransactionaccount.get();
+        Optional<Account> anotherTransactionAccount = accountRepository.findById(senderAccountId);
+        Account optionalAcc = anotherTransactionAccount.get();
         Balance balance = balanceRepository.findByAccount(account);
 
         if (balance == null) {
@@ -60,7 +69,6 @@ public class TransactionService {
             throw new InvalidTransactionIndicatorException("Invalid transaction indicator");
         }
 
-        // Handle transfer to another account
         if (transaction.getReceiverAccountNumber() != null) {
             Account receiverAccount = accountRepository.findByAccountNumber(transaction.getReceiverAccountNumber());
             if (receiverAccount == null) {
@@ -77,7 +85,6 @@ public class TransactionService {
             receiverTransaction.setAccount(receiverAccount);
             receiverTransaction.setAmount(transaction.getAmount());
             receiverTransaction.setIndicator("CR");
-            //receiverTransaction.setReceiver_account_number(transaction.getAccount().getAccountNumber());
             receiverTransaction.setReceiverAccountNumber(optionalAcc.getAccountNumber());
             receiverTransaction.setDescription(transaction.getDescription());
             receiverTransaction.setDate(LocalDateTime.now());
@@ -91,8 +98,6 @@ public class TransactionService {
 
         return transaction;
     }
-
-
 
     public void deleteTransaction(Long id) {
         transactionRepository.deleteById(id);
