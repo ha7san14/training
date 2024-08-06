@@ -56,7 +56,7 @@ public class BalanceApiTest {
         testAccountId = savedAccount.getId();
 
         Balance balance = new Balance();
-        balance.setDate(LocalDateTime.now());
+        //balance.setDate(LocalDateTime.now());
         balance.setAmount(BigDecimal.valueOf(1000.00));
         balance.setAccount(savedAccount);
         Balance savedBalance = balanceRepository.save(balance);
