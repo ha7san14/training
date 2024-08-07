@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axiosInstance from "../../api/axiosConfig";
-import validator from "validator";
 
 Modal.setAppElement("#root");
 
@@ -31,10 +30,10 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
   //   return emailRegex.test(email);
   // };
 
-  // const isValidPassword = (password) => {
-  //   const passwordRegex = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  //   return passwordRegex.test(password);
-  // };
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,40 +56,21 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
     // }
 
     if (name === "email") {
-      if (!value) {
-        validationErrors.email = "Email is required";
-      } else if (!validator.isEmail(value)) {
+      const emailInput = e.target;
+      if (!emailInput.checkValidity()) {
         validationErrors.email = "Invalid email address";
       } else {
         delete validationErrors.email;
       }
     }
 
-    // if (name === "password") {
-    //   if (!value) {
-    //     validationErrors.password = "Password is required";
-    //   } else if (value.length < 8) {
-    //     validationErrors.password = "Password must be at least 8 characters long";
-    //   } else if (!isValidPassword(value)) {
-    //     validationErrors.password = "Password must contain at least one number and one special character";
-    //   } else {
-    //     delete validationErrors.password;
-    //   }
-    // }
     if (name === "password") {
       if (!value) {
         validationErrors.password = "Password is required";
-      } else if (
-        !validator.isStrongPassword(value, {
-          minLength: 8,
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
-          minSymbols: 1,
-        })
-      ) {
-        validationErrors.password =
-          "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+      } else if (value.length < 8) {
+        validationErrors.password = "Password must be at least 8 characters long";
+      } else if (!isValidPassword(value)) {
+        validationErrors.password = "Password must contain at least one number and one special character";
       } else {
         delete validationErrors.password;
       }
@@ -138,32 +118,22 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
   };
 
   const handleCreateUser = async () => {
+    const form = document.querySelector('form');
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     const { username, password, email, address } = newUser;
     const validationErrors = {};
 
     if (!username) validationErrors.username = "Username is required";
     if (!password) validationErrors.password = "Password is required";
-    // if (password.length > 0 && password.length < 8)
-    //   validationErrors.password = "Password must be at least 8 characters long";
-    // if (password.length > 0 && !isValidPassword(password))
-    //   validationErrors.password = "Password must contain at least one number and one special character";
-    if (
-      password.length > 0 &&
-      !validator.isStrongPassword(password, {
-        minLength: 8,
-        minLowercase: 1,
-        minUppercase: 1,
-        minNumbers: 1,
-        minSymbols: 1,
-      })
-    ) {
-      validationErrors.password =
-        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character";
-    }
+    if (password.length > 0 && password.length < 8)
+      validationErrors.password = "Password must be at least 8 characters long";
+    if (password.length > 0 && !isValidPassword(password))
+      validationErrors.password = "Password must contain at least one number and one special character";
     if (!email) {
       validationErrors.email = "Email is required";
-    } else if (!validator.isEmail(email)) {
-      validationErrors.email = "Invalid email address";
     }
     //  else if (!isValidEmail(email)) {
     //   validationErrors.email = "Invalid email address";
@@ -260,6 +230,7 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
               onChange={handleChange}
               onBlur={handleBlur}
               className="border border-gray-300 rounded-lg w-full p-2 text-sm"
+              required
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>
