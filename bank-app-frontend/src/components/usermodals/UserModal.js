@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axiosInstance from "../../api/axiosConfig";
+import CryptoJS from "crypto-js";
 
 Modal.setAppElement("#root");
 
@@ -141,6 +142,7 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
     if (!address) validationErrors.address = "Address is required";
 
     if (Object.keys(validationErrors).length === 0) {
+      
       try {
         const response = await axiosInstance.get("/users/get-all-users");
         const users = response.data;
@@ -156,10 +158,11 @@ const UserModal = ({ isOpen, onRequestClose, onUserCreated }) => {
         }
 
         if (Object.keys(validationErrors).length === 0) {
+          const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
           try {
             const response = await axiosInstance.post(
               "/users/create-user",
-              newUser
+              { ...newUser, password: hashedPassword }
             );
             onUserCreated(response.data);
             onRequestClose();

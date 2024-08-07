@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/LoginNavbar";
+import CryptoJS from "crypto-js";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -11,13 +12,17 @@ const LoginPage = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+    let hashedPassword = password
+    if(username!== "admin"){
+      hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+    }
+    
     try {
       const response = await axios.post(
         "http://localhost:8080/api/v1/auth/login",
         {
           username,
-          password,
+          password: hashedPassword,
         }
       );
 
