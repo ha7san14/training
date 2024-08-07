@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import CryptoJS from "crypto-js";
 Modal.setAppElement("#root");
 
 const ChangePasswordModal = ({ isOpen, onClose, onSave }) => {
@@ -61,7 +62,10 @@ const ChangePasswordModal = ({ isOpen, onClose, onSave }) => {
     if (validationError) {
       setPasswordError(validationError);
     } else {
-      onSave(oldPassword, newPassword, setPasswordError);
+      const hashedOldPassword = CryptoJS.SHA256(oldPassword).toString(CryptoJS.enc.Hex);
+      const hashedNewPassword = CryptoJS.SHA256(newPassword).toString(CryptoJS.enc.Hex);
+      
+      onSave(hashedOldPassword, hashedNewPassword, setPasswordError);
       resetFields();
     }
   };
