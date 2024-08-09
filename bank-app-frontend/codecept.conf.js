@@ -4,7 +4,7 @@ setHeadlessWhen(process.env.HEADLESS);
 
 exports.config = {
   tests: './tests/*_test.js',
-  output: './output',
+  // output: './output',
   helpers: {
     Playwright: {
       url: 'http://localhost:3000',
